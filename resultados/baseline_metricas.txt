@@ -1,0 +1,32 @@
+BASELINE TF-IDF + REGRESIÓN LOGÍSTICA — RESULTADOS SOBRE PRUEBA
+Fecha: 2026-09-18 16:51
+Train: 1012  Val: 217  Test: 217
+
+Accuracy (referencia):        0.806
+F1 macro (métrica principal): 0.778   (criterio de éxito: >= 0.80)
+ECE (calibración):            0.070
+Umbral de abstención:         0.60
+Cobertura automática:         73.3% (159/217 tickets emitidos sin revisión)
+F1 macro solo casos emitidos: 0.863
+
+Reporte por clase:
+                    precision    recall  f1-score   support
+
+ alumbrado_publico      0.725     0.921     0.811        63
+baches_y_pavimento      0.807     0.767     0.786        60
+      fuga_de_agua      0.900     0.818     0.857        44
+recoleccion_basura      1.000     0.455     0.625        11
+         seguridad      0.857     0.769     0.811        39
+
+          accuracy                          0.806       217
+         macro avg      0.858     0.746     0.778       217
+      weighted avg      0.821     0.806     0.804       217
+
+
+Matriz de confusión (filas = real, columnas = predicho):
+                    alumbrado_publico  baches_y_pavimento  fuga_de_agua  recoleccion_basura  seguridad
+alumbrado_publico                  58                   4             0                   0          1
+baches_y_pavimento                  9                  46             3                   0          2
+fuga_de_agua                        5                   2            36                   0          1
+recoleccion_basura                  1                   4             0                   5          1
+seguridad                           7                   1             1                   0         30

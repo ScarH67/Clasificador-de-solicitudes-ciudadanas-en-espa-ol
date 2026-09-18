@@ -1,0 +1,31 @@
+id_registro,texto,categoria,prediccion,confianza,requiere_revision
+REG-6CD43A81FF,Llevamos 4 días sin agua en la col. Narvarte Poniente. Favor de atender el reporte #38291.,fuga_de_agua,fuga_de_agua,0.733,False
+REG-23B44B5391,"Bache de gran tamaño en Av. Insurgentes Sur a la altura de Metrobús Olivo, riesgo de ponchadura.",baches_y_pavimento,fuga_de_agua,0.73,False
+REG-A6CECFB27F,Fuga en medidor principal de la red pública en la colonia Agrícola Oriental. Urge cuadrilla.,fuga_de_agua,fuga_de_agua,0.793,False
+REG-FB9E9C1B90,"Basura acumulada y mal olor en las salidas de la estación Pino Suárez, requiere limpieza urgente.",recoleccion_basura,fuga_de_agua,0.468,True
+REG-2431B50B47,Luminarias de la bajada de Viaducto hacia Insurgentes parpadean constantemente y encandilan.,alumbrado_publico,seguridad,0.284,True
+REG-0395BA204B,"Inseguridad constante en el paso desnivel de Eje Central, asaltos frecuentes a peatones.",seguridad,seguridad,0.56,True
+REG-F78A8C0A2B,Tono de la alerta sísmica distorsionado e incomprensible en el altavoz de la colonia Escandón.,seguridad,fuga_de_agua,0.74,False
+REG-01D12F2447,"Poste de emergencia inclinado tras impacto vehicular en Av. Montevideo, peligro de caída.",seguridad,seguridad,0.691,False
+REG-88B4BEB0D9,Vehículo abandonado en la vía pública por más de tres meses en la col. Narvarte Poniente.,seguridad,seguridad,0.91,False
+REG-4C7D0F0D52,Reporto una fuga de agua en la vía pública que no ha sido atendida.,fuga_de_agua,fuga_de_agua,0.511,True
+REG-11A9BCFC32,Me quejo por la falta de agua potable en mi colonia desde hace varios días.,fuga_de_agua,baches_y_pavimento,0.471,True
+REG-31E73DE2BE,"Me quejo por falta de mantenimiento al drenaje, que provoca encharcamientos.",fuga_de_agua,baches_y_pavimento,0.494,True
+REG-5C5A22104D,La cámara de vigilancia del poste con identificador 1542 no tiene luz o está desorientada. @C5_CDMX,seguridad,seguridad,0.955,False
+REG-77768348F6,La cámara de vigilancia del poste con identificador 4661 no tiene luz o está desorientada. @C5_CDMX,seguridad,seguridad,0.95,False
+REG-4DBCE085A0,Pésima atención para dar seguimiento a mi carpeta de investigación en la fiscalía de Benito Juárez. @FGJCDMX,seguridad,seguridad,0.998,False
+REG-D35C916AA0,La cámara de vigilancia del poste con identificador 5522 no tiene luz o está desorientada. @C5_CDMX,seguridad,seguridad,0.961,False
+REG-6187AFF881,Pésima atención para dar seguimiento a mi carpeta de investigación en la fiscalía de Cuauhtémoc. @FGJCDMX,seguridad,seguridad,0.998,False
+REG-9B28E64C7C,Hay unidades mal estacionadas que generan inseguridad sobre la avenida Reforma. @SSC_CDMX,seguridad,seguridad,0.994,False
+REG-517009DB0C,"Brote de aguas negras en el cruce de División del Norte y Amores, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-F7EAF5A83E,"Brote de aguas negras en el cruce de Tlalpan y Tlalpan, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-56EEF3194F,"Falta de luminarias funcionales en toda la avenida División del Norte, zona muy oscura e insegura por la noche. @SOBSE_CDMX",alumbrado_publico,alumbrado_publico,0.994,False
+REG-52A3398D90,"Brote de aguas negras en el cruce de Insurgentes y Insurgentes, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-2D4D72F05B,Pésima atención para dar seguimiento a mi carpeta de investigación en la fiscalía de Venustiano Carranza. @FGJCDMX,seguridad,seguridad,0.998,False
+REG-87AFFEE9BA,"Se solicita mayor vigilancia y patrullaje en la colonia Santa Fe, han aumentado los asaltos a transeúnte. @SSC_CDMX",seguridad,seguridad,0.996,False
+REG-E28C0B209E,Hay un bache gigantesco en la lateral de Amores que ya ha ponchado varias llantas de autos. @SOBSE_CDMX,baches_y_pavimento,baches_y_pavimento,0.981,False
+REG-AB7DAF57C9,"Brote de aguas negras en el cruce de Reforma y División del Norte, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-B81921E759,Vehículos estacionados en doble fila obstruyen el paso peatonal y ciclista en Insurgentes. @SSC_CDMX,seguridad,seguridad,0.996,False
+REG-57688EF18E,"Se solicita mayor vigilancia y patrullaje en la colonia Roma Norte, han aumentado los asaltos a transeúnte. @SSC_CDMX",seguridad,seguridad,0.996,False
+REG-0CC2E90D73,"Brote de aguas negras en el cruce de División del Norte y Tlalpan, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-EC6C927942,"Brote de aguas negras en el cruce de Tlalpan y Eje Central, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False

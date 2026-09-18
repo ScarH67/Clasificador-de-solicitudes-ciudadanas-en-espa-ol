@@ -1,0 +1,49 @@
+id_registro,texto,categoria,prediccion,confianza,requiere_revision
+REG-23B44B5391,"Bache de gran tamaño en Av. Insurgentes Sur a la altura de Metrobús Olivo, riesgo de ponchadura.",baches_y_pavimento,baches_y_pavimento,0.999,False
+REG-E3CB18314F,"Caos por semáforo apagado en Av. Universidad y Río Churubusco, urgen agentes de tránsito.",seguridad,seguridad,0.999,False
+REG-590CB69215,Seguimiento de reporte #88210 para reparación de tubería rota frente a parque público.,fuga_de_agua,seguridad,0.817,False
+REG-21CC678DBA,El poste C5 no transmite video en tiempo real en la esquina de la col. Santa María la Ribera.,seguridad,seguridad,1.0,False
+REG-1D7CFA4276,Falta de respuesta al presionar el botón de pánico en la colonia Doctores tras intento de asalto.,seguridad,seguridad,1.0,False
+REG-9C8894D6FE,Brote de agua con mal olor en las coladeras de la colonia Mixcoac tras lluvia ligera.,fuga_de_agua,fuga_de_agua,1.0,False
+REG-611AB42E30,Comercio informal invadiendo totalmente la banqueta fuera de la estación del metro Cuauhtémoc.,seguridad,seguridad,0.985,False
+REG-790668739A,Reporte de fuga de agua no atendido desde hace más de 48 horas en la col. Guerrero.,fuga_de_agua,fuga_de_agua,1.0,False
+REG-D33874FBE0,"Rejilla metálica rota en el drenaje pluvial de Av. San Antonio, peligro para ciclistas.",fuga_de_agua,fuga_de_agua,0.997,False
+REG-690760317A,Falta de agentes de tránsito para agilizar el cruce de Av. Constituyentes y Observatorio.,seguridad,seguridad,0.96,False
+REG-3348530D7F,"Reparación inconclusa dejó una zanja sin tapar en la calle de Liverpool, col. Juárez.",fuga_de_agua,fuga_de_agua,0.993,False
+REG-77E567B1A7,Me quejo por baches sin reparar que representan un riesgo en la vía pública.,baches_y_pavimento,baches_y_pavimento,0.984,False
+REG-5C5A22104D,La cámara de vigilancia del poste con identificador 1542 no tiene luz o está desorientada. @C5_CDMX,seguridad,seguridad,1.0,False
+REG-F62C8C35FF,Llevo más de 5 horas esperando en el Ministerio Público de Cuauhtémoc para levantar una denuncia y no hay personal. @FGJCDMX,seguridad,seguridad,1.0,False
+REG-331FA0A5A4,Llevo más de 5 horas esperando en el Ministerio Público de Álvaro Obregón para levantar una denuncia y no hay personal. @FGJCDMX,seguridad,seguridad,1.0,False
+REG-A70A056113,Hay unidades mal estacionadas que generan inseguridad sobre la avenida Tlalpan. @SSC_CDMX,seguridad,seguridad,1.0,False
+REG-77768348F6,La cámara de vigilancia del poste con identificador 4661 no tiene luz o está desorientada. @C5_CDMX,seguridad,seguridad,1.0,False
+REG-4DBCE085A0,Pésima atención para dar seguimiento a mi carpeta de investigación en la fiscalía de Benito Juárez. @FGJCDMX,seguridad,seguridad,1.0,False
+REG-D35C916AA0,La cámara de vigilancia del poste con identificador 5522 no tiene luz o está desorientada. @C5_CDMX,seguridad,seguridad,1.0,False
+REG-510FF3AC2A,Hay un bache gigantesco en la lateral de Tlalpan que ya ha ponchado varias llantas de autos. @SOBSE_CDMX,baches_y_pavimento,baches_y_pavimento,1.0,False
+REG-684EDF0484,Llevo más de 5 horas esperando en el Ministerio Público de Iztapalapa para levantar una denuncia y no hay personal. @FGJCDMX,seguridad,seguridad,1.0,False
+REG-47FD150B54,"Brote de aguas negras en el cruce de Reforma y Reforma, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-517009DB0C,"Brote de aguas negras en el cruce de División del Norte y Amores, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-241CBCC40D,"Brote de aguas negras en el cruce de Amores y División del Norte, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-E28C0B209E,Hay un bache gigantesco en la lateral de Amores que ya ha ponchado varias llantas de autos. @SOBSE_CDMX,baches_y_pavimento,baches_y_pavimento,1.0,False
+REG-AB7DAF57C9,"Brote de aguas negras en el cruce de Reforma y División del Norte, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-FA0146F3A8,Falta suministro de agua potable en la colonia Del Valle desde el fin de semana. ¿Hasta cuándo habrá servicio? @SacmexCDMX,fuga_de_agua,fuga_de_agua,1.0,False
+REG-564730E6A2,"Brote de aguas negras en el cruce de Amores y Tlalpan, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-0D5DA163EF,Llevo más de 5 horas esperando en el Ministerio Público de Tlalpan para levantar una denuncia y no hay personal. @FGJCDMX,seguridad,seguridad,1.0,False
+REG-0CC2E90D73,"Brote de aguas negras en el cruce de División del Norte y Tlalpan, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-838ACB463C,"Brote de aguas negras en el cruce de Insurgentes y Tlalpan, el olor insoportable afecta la salud. @SacmexCDMX",fuga_de_agua,fuga_de_agua,1.0,False
+REG-A8B08A643A,"En Jardines del Ajusco 4a seccion personas ajenas a CFE colocando luminarias en los postes, vehículo sin placas ni identicacion alguna @CFEmx",alumbrado_publico,alumbrado_publico,0.989,False
+REG-9B1864E713,"Fuga de agua afuera del 152 de calle Cuauhtémoc. Esquina con Aguayo, colonia del Carmen",fuga_de_agua,fuga_de_agua,1.0,False
+REG-4E92E56FE3,"se abrió la banqueta por una fuga de agua sobre avenida Dr. José María Vértiz 189. Es paso vehicular, por lo que hay riesgo de un mayor hundimiento.",fuga_de_agua,fuga_de_agua,0.978,False
+REG-F81693C1B1,"Fuga de agua , esta haciendo un socabon colonia agrarista",fuga_de_agua,fuga_de_agua,1.0,False
+REG-3C0EF457CF,"La alcaldía MH ya atendió las alcantarillas que le correspondían. La Roja les correponde a UDS, esto es en Monte Athos y Monte Himalaya en las Lomas de Chapultepec Atiendan está solícitud., por favor. Gracias por su pronta atención.",fuga_de_agua,fuga_de_agua,0.98,False
+REG-47CF6E4AB8,"Las lluvias dejaron acumulaciones de agua en distintos puntos de Tláhuac. Policías de la ya realizan labores para liberar coladeras, facilitar el desalojo del agua y apoyar a vecinos afectados.",fuga_de_agua,fuga_de_agua,1.0,False
+REG-828684E9DA,"Drenaje colapsado deja bajo el agua a habitantes de la Habana y San José en áhuac., . Vecinos quedaron bajo el agua tras el colapso del drenaje y el desbordamiento del Lago de Chalco durante la madrugada del viernes. reportando para la",fuga_de_agua,fuga_de_agua,1.0,False
+REG-19B15CBAF7,"Este socavón ya lleva más de 10 días sobre Calzada de las Bombas, antes de llegar al Eje 3 Hasta que no se caiga un motociclista, un ciclista o una persona adulta mayor van a hacer algo.",baches_y_pavimento,baches_y_pavimento,1.0,False
+REG-C3EF40DAA3,"Están fundidas todas luminarias de Viaducto Río Piedad entre el metro Ciudad Deportiva y el metro Puebla, de lado de la deportiva",alumbrado_publico,alumbrado_publico,0.999,False
+REG-FFF724DB93,"ón , Par de baches revienta llantas, Anillo Periférico Sur a Norte, en en",baches_y_pavimento,baches_y_pavimento,1.0,False
+REG-91A821548F,"Gente MARRANA, ayuda a levantar la basura por favor reportan vecinos que foco de infección TREN LIGERO PARADA PERIFÉRICO",recoleccion_basura,fuga_de_agua,0.525,True
+REG-96F7334B2D,"Se dio atención a 447 solicitudes, principalmente relacionadas con alumbrado público, poda de árboles, bacheo, limpieza de la vía pública y mantenimiento de banquetas. La intervino en distintos puntos con 15 cuadrillas, 212 trabajadoras y trabajadores y 20 vehículos.",alumbrado_publico,alumbrado_publico,0.993,False
+REG-2DFEBEEFDC,"Alessandra, ojalá nos pudieran ayudar con la limpieza en avenida cuauhtémoc, cada día hay más basura se ha deteriorado mucho la calle",recoleccion_basura,recoleccion_basura,0.971,False
+REG-2B27D9B209,"Urgente apoyen tapando baches y zanjas del puente frente a Expo Santa Fe, aparte de que son un peligro, también generan tráfico y dañan los autos",baches_y_pavimento,baches_y_pavimento,0.99,False
+REG-63E5E05A76,este bache lleva meses en la calle de Miguel Ocaranza de la Merced Gómez y no hay quien lo repare.,baches_y_pavimento,baches_y_pavimento,1.0,False
+REG-84D9A2FEC9,"Este contempla mantenimiento de áreas verdes, poda y nuevas plantas, renovación de pisos y jardineras, reparación de luminarias, así como mantenimiento y colocación de bancas y mobiliario. En la trabajamos para recuperar este espacio como .",alumbrado_publico,alumbrado_publico,0.999,False
+REG-BFE2247706,Muchísimos baches en los 3 carriles de viaducto Miguel Aleman (desde congreso de la unión hasta división del norte) de oriente a poniente y de poniente a oriente.,baches_y_pavimento,baches_y_pavimento,1.0,False

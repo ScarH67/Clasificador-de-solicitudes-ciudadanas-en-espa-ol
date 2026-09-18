@@ -1,0 +1,6 @@
+Tiempo técnico de generación del ticket (n=100)
+  mediana: 1.2 ms
+  media:   1.2 ms
+  p95:     1.4 ms
+Medido desde la recepción del texto hasta el ticket construido.
+No incluye tiempos de atención institucional (fuera del alcance).

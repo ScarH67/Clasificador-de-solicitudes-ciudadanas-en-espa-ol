@@ -1,0 +1,37 @@
+COMPARACIÓN FINAL BASELINE vs. BETO (mismo conjunto de prueba)
+
+                 accuracy  f1_macro  cobertura  f1_macro_emitidos
+TF-IDF + LogReg     0.806     0.778      0.733              0.863
+BETO                0.912     0.912      0.945              0.938
+
+Mejora de BETO en F1 macro: +0.134
+
+Criterio de decisión (sección 4.6):
+→ BETO supera de manera consistente al baseline: se adopta BETO como modelo del prototipo.
+
+F1 por clase — baseline:
+                    precision    recall  f1-score   support
+
+ alumbrado_publico      0.725     0.921     0.811        63
+baches_y_pavimento      0.807     0.767     0.786        60
+      fuga_de_agua      0.900     0.818     0.857        44
+recoleccion_basura      1.000     0.455     0.625        11
+         seguridad      0.857     0.769     0.811        39
+
+          accuracy                          0.806       217
+         macro avg      0.858     0.746     0.778       217
+      weighted avg      0.821     0.806     0.804       217
+
+F1 por clase — BETO:
+                    precision    recall  f1-score   support
+
+ alumbrado_publico      0.967     0.937     0.952        63
+baches_y_pavimento      0.881     0.867     0.874        60
+      fuga_de_agua      0.894     0.955     0.923        44
+recoleccion_basura      0.846     1.000     0.917        11
+         seguridad      0.919     0.872     0.895        39
+
+          accuracy                          0.912       217
+         macro avg      0.901     0.926     0.912       217
+      weighted avg      0.914     0.912     0.912       217
+
