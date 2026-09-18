@@ -1,107 +1,106 @@
 ANÁLISIS DE ERRORES SOBRE EL CONJUNTO DE PRUEBA
 
 === Baseline TF-IDF + LogReg ===
-Errores: 42 de 217
-Errores emitidos SIN revisión (riesgo operativo): 16
+Errores: 36 de 282
+Errores emitidos SIN revisión (riesgo operativo): 19
 
 Tasa de acierto y confianza media por clase real:
                      n  acierto  conf_media
 categoria                                  
-alumbrado_publico   63    0.921       0.804
-baches_y_pavimento  60    0.767       0.709
-fuga_de_agua        44    0.818       0.790
-recoleccion_basura  11    0.455       0.614
-seguridad           39    0.769       0.691
+alumbrado_publico   63    0.873       0.801
+baches_y_pavimento  77    0.883       0.767
+fuga_de_agua        57    0.912       0.838
+recoleccion_basura  41    0.829       0.809
+seguridad           44    0.841       0.769
 
 Confianza media en aciertos vs. errores (señal de calibración):
 correcto
-False    0.571
-True     0.787
+False    0.596
+True     0.825
 
 Casos mal clasificados (confianza desc.; los de arriba son los
 más peligrosos: errores con alta confianza):
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.89 rev=NO  <<La ciudad se nos cae a pedazos, socavones, tráfico, y cada que hay una>>
-  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.88 rev=NO  <<Gravilla y residuos de obra no retirados sobre la ciclovía de la Av. H>>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.81 rev=NO  <<Apoyo porque no hacen nada, tanto como no hacen nada desde hace meses,>>
-  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.80 rev=NO  <<En las banquetas que pusieron en la esquina de Av. Luis Spota y Calzad>>
-  real=fuga_de_agua         pred=alumbrado_publico    conf=0.79 rev=NO  <<Cuánto tardan en atender un reporte para destapar mi toma de agua ? Ya>>
-  real=seguridad            pred=alumbrado_publico    conf=0.78 rev=NO  <<Oigan CFE como puede ser posible que uno vaya al pendiente de sus pago>>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.73 rev=NO  <<ya sabes que desde el viernes estan quitando los confibicis en todo di>>
-  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.73 rev=NO  <<Ayuda con esta coladera o registro SIN TAPA, ahora en PALMAS 1005, Gra>>
-  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.72 rev=NO  <<Buenas tardes por favor podrían enviar personal para reparar los semáf>>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.72 rev=NO  <<carretera Xochimilco-Tulyehualco desde la bodega aurrera hasta el emba>>
-  real=seguridad            pred=baches_y_pavimento   conf=0.71 rev=NO  <<No se a que área le toca las escaleras del sobre congreso de la unión >>
-  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.71 rev=NO  <<Hay una rama grande de un arból caida en carriles centrales de Aquiles>>
-  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.69 rev=NO  <<Seguimos sin semaforos Calz México-Tacuba 75, Un Hogar Para Nosotros, >>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.68 rev=NO  <<Acá mi reporte número 35. No me cansaré de reportar las pésimas condic>>
-  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.67 rev=NO  <<Buenos días dos luminarias no sirven en Av. Paseo del Pedregal entre c>>
-  real=fuga_de_agua         pred=alumbrado_publico    conf=0.61 rev=NO  <<Ya paso un mes y no han arreglado nada. De nuevo inician las lluvias p>>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.58 rev=sí  <<aquí cumpliendo 5 años, 372 llantas ponchadas 57 accidentes graves y n>>
-  real=seguridad            pred=alumbrado_publico    conf=0.58 rev=sí  <<buenas noches nos pueden apoyar por favor en cerrada libertad esquinas>>
-  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.56 rev=sí  <<Urge apoyo de para realizar trabajos de poda preventiva del arbolado c>>
-  real=seguridad            pred=alumbrado_publico    conf=0.55 rev=sí  <<se pide el apoyo para la alcaldía Tlalpan para quitar a todos los vien>>
-  real=seguridad            pred=alumbrado_publico    conf=0.55 rev=sí  <<está provocando accidentes. por favor su atención.>>
-  real=recoleccion_basura   pred=seguridad            conf=0.53 rev=sí  <<Sería importante su revisión ya que podría haber un colapso de la estr>>
-  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.52 rev=sí  <<Ya solucionen ese problema en el carrizal, san Miguel #>>
-  real=fuga_de_agua         pred=alumbrado_publico    conf=0.51 rev=sí  <<mucho quitas puestos, pero para cuando arreglas las coladeras de las c>>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.50 rev=sí  <<Te encargo que nos apoyes a presionar a ya que tienen un asco eje6 lle>>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.50 rev=sí  <<es arreglar las calles o arruinarlas . Las dejan muy irregulares y con>>
-  real=seguridad            pred=alumbrado_publico    conf=0.50 rev=sí  <<buenos dias!! Se hizo un un vache en circuito interior y marina Nacion>>
-  real=seguridad            pred=alumbrado_publico    conf=0.50 rev=sí  <<Se nos informa que al momento la alarma fue desactivada. Nos apoya a c>>
-  real=seguridad            pred=alumbrado_publico    conf=0.50 rev=sí  <<por favor su apoyo para auxiliar a una persona en situación de calle q>>
-  real=fuga_de_agua         pred=alumbrado_publico    conf=0.49 rev=sí  <<para su atención: pasa el tiempo y los reportes, aguas negras, nada de>>
-  real=alumbrado_publico    pred=seguridad            conf=0.48 rev=sí  <<En la colonia Jalalpa Tepito, alcaldía Álvaro Obregón, renovamos el al>>
-  real=fuga_de_agua         pred=seguridad            conf=0.47 rev=sí  <<Calle Vicente Guerrero mz. 62 Lt.702 Col. Ejidos de Santa María Aztahu>>
-  real=seguridad            pred=fuga_de_agua         conf=0.43 rev=sí  <<con quien se solicita apoyo para una persona en está claramente de ebr>>
-  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.43 rev=sí  <<Hola en Av. Santa Ana de nuevo se está haciendo un basurero, manden un>>
-  real=baches_y_pavimento   pred=seguridad            conf=0.41 rev=sí  <<Buenas tardes hay una coladera enalas condiciones en la calle de victo>>
-  real=fuga_de_agua         pred=alumbrado_publico    conf=0.41 rev=sí  <<Calzada Ignacio Zaragoza sufrió de encharcamientos durante la mañana d>>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.37 rev=sí  <<Hola podrian arreglar por favor esta banqueta ubicada en avenida cerro>>
-  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.36 rev=sí  <<Los parchados de calles mal hechos en la Esto es en la calle Llanura e>>
-  real=baches_y_pavimento   pred=seguridad            conf=0.36 rev=sí  <<AÑO Y MEDIO que pavimentaron alvaro obregon/ av. Yucatan y no han pues>>
-  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.34 rev=sí  <<Saliendo del metro zapotitlan, registro en hundimiento>>
-  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.33 rev=sí  <<Pues en , Aragón 6a. Sección se están inundando donde curiosamente est>>
-  real=recoleccion_basura   pred=alumbrado_publico    conf=0.31 rev=sí  <<En la col. Lomas de Becerra, alc. Álvaro Obregón, recuperamos este lug>>
+  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.89 rev=NO  <<buenas tardes , en la calle de Augusto Rodin y Carracci hay un socavón>>
+  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.86 rev=NO  <<Hay una rama grande de un arból caida en carriles centrales de Aquiles>>
+  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.85 rev=NO  <<La ciudad se nos cae a pedazos, socavones, tráfico, y cada que hay una>>
+  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.82 rev=NO  <<Nos apoyan a limpiar lodo sobre insurgentes norte esquina avenida Mont>>
+  real=seguridad            pred=baches_y_pavimento   conf=0.81 rev=NO  <<Si algún ciudadano de la sufriera algún accidente mortal quede constan>>
+  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.81 rev=NO  <<Las lluvias muestran lo mal que la T4 construye en la CDMX: "encharcam>>
+  real=baches_y_pavimento   pred=seguridad            conf=0.79 rev=NO  <<Gracias, coordinamos con personal de tránsito para su atención.>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.77 rev=NO  <<Buenas tardes por favor podrían enviar personal para reparar los semáf>>
+  real=fuga_de_agua         pred=alumbrado_publico    conf=0.77 rev=NO  <<@CFE_Contigo LOS TORRENTES Y LOMAS 4 VERACRUZ. 12 HORAS SIN LUZ, CERO >>
+  real=fuga_de_agua         pred=alumbrado_publico    conf=0.77 rev=NO  <<desde el martes no tengo agua por equivocación suya, su operador se eq>>
+  real=seguridad            pred=alumbrado_publico    conf=0.71 rev=NO  <<Reporto un posible caso de maltrato infantil en mi comunidad.>>
+  real=seguridad            pred=alumbrado_publico    conf=0.70 rev=NO  <<Oigan CFE como puede ser posible que uno vaya al pendiente de sus pago>>
+  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.69 rev=NO  <<Buenas tardes . Hace unos días podaron árboles sobre insurgentes entre>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.66 rev=NO  <<Seguimos sin semaforos Calz México-Tacuba 75, Un Hogar Para Nosotros, >>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.65 rev=NO  <<Buenos días dos luminarias no sirven en Av. Paseo del Pedregal entre c>>
+  real=baches_y_pavimento   pred=recoleccion_basura   conf=0.65 rev=NO  <<BUENAS NOCHES SOLICITO EL RETIRÓ DE LA BASURA DEBAJO DEL PUENTE PEATON>>
+  real=seguridad            pred=baches_y_pavimento   conf=0.63 rev=NO  <<Autos modificados realizando arrancones en las madrugadas sobre Av. Ta>>
+  real=alumbrado_publico    pred=seguridad            conf=0.62 rev=NO  <<mucha variación de voltaje en la colonia Árboledas de San Jorge, su ap>>
+  real=fuga_de_agua         pred=seguridad            conf=0.62 rev=NO  <<Choque y fuga en . Un carro tiró mi moto estacionada en la Col. Amplia>>
+  real=seguridad            pred=alumbrado_publico    conf=0.56 rev=sí  <<Me quejo por falta de vigilancia y problemas de vialidad en mi zona.>>
+  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.52 rev=sí  <<Se robaron la tapa de una coladera. Está sobre avenida Tepetlapa casi >>
+  real=recoleccion_basura   pred=seguridad            conf=0.50 rev=sí  <<Escombros abandonados por obras en la banqueta de Av. Revolución impid>>
+  real=alumbrado_publico    pred=seguridad            conf=0.50 rev=sí  <<@CFE_Contigo no hay alumbrado público en la calle rosales margaritas y>>
+  real=baches_y_pavimento   pred=seguridad            conf=0.50 rev=sí  <<Un cráter en la colonia Miguel Hidalgo>>
+  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.49 rev=sí  <<Los parchados de calles mal hechos en la Esto es en la calle Llanura e>>
+  real=alumbrado_publico    pred=seguridad            conf=0.47 rev=sí  <<En la colonia Jalalpa Tepito, alcaldía Álvaro Obregón, renovamos el al>>
+  real=baches_y_pavimento   pred=recoleccion_basura   conf=0.44 rev=sí  <<Pedimos su apoyo para la construcción definitiva del Puente peatonal d>>
+  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.43 rev=sí  <<pido su apoyo para quitar escombro de calle Jacobo watt entre calle fo>>
+  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.43 rev=sí  <<Ayuda con este registro sin tapa en Sierra Gorda 42 Gracias>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.40 rev=sí  <<Los trabajos incluyen la perforación, colocación y cimentación de las >>
+  real=recoleccion_basura   pred=seguridad            conf=0.40 rev=sí  <<Sería importante su revisión ya que podría haber un colapso de la estr>>
+  real=seguridad            pred=alumbrado_publico    conf=0.39 rev=sí  <<que eso tiene que hacer para que pongan orden en Félix cuevas y av Coy>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.39 rev=sí  <<Ya solucionen ese problema en el carrizal, san Miguel #>>
+  real=baches_y_pavimento   pred=recoleccion_basura   conf=0.38 rev=sí  <<Se resolvieron solicitudes vecinales relacionadas con poda, alumbrado >>
+  real=recoleccion_basura   pred=seguridad            conf=0.32 rev=sí  <<NO HAY BARRIDO DE CALLES . estacionamiento clandestino de peregrinos ,>>
+  real=seguridad            pred=baches_y_pavimento   conf=0.28 rev=sí  <<Nuevamente reportando los arrancones de motos afuera del Bachilleres 4>>
 
 === BETO ===
-Errores: 19 de 217
-Errores emitidos SIN revisión (riesgo operativo): 15
+Errores: 24 de 282
+Errores emitidos SIN revisión (riesgo operativo): 23
 
 Tasa de acierto y confianza media por clase real:
                      n  acierto  conf_media
 categoria                                  
-alumbrado_publico   63    0.937       0.942
-baches_y_pavimento  60    0.867       0.907
-fuga_de_agua        44    0.955       0.944
-recoleccion_basura  11    1.000       0.923
-seguridad           39    0.872       0.895
+alumbrado_publico   63    0.873       0.907
+baches_y_pavimento  77    0.883       0.912
+fuga_de_agua        57    0.947       0.935
+recoleccion_basura  41    0.927       0.914
+seguridad           44    0.977       0.934
 
 Confianza media en aciertos vs. errores (señal de calibración):
 correcto
-False    0.745
-True     0.941
+False    0.833
+True     0.927
 
 Casos mal clasificados (confianza desc.; los de arriba son los
 más peligrosos: errores con alta confianza):
-  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.96 rev=NO  <<Ya solucionen ese problema en el carrizal, san Miguel #>>
-  real=seguridad            pred=alumbrado_publico    conf=0.95 rev=NO  <<Oigan CFE como puede ser posible que uno vaya al pendiente de sus pago>>
-  real=alumbrado_publico    pred=fuga_de_agua         conf=0.95 rev=NO  <<otra vez!!! Sin luz, viene y va cada 10 segundos, No puede ser!!! Col.>>
-  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.95 rev=NO  <<Buenas noches, CONTINÚAN LUMINARIAS DESCOMPUESTAS Ó APAGADAS, en Eje 3>>
-  real=seguridad            pred=baches_y_pavimento   conf=0.91 rev=NO  <<Fernando de Alva Ixtlilxóchitl esq eje central. nuevamente franeleros >>
-  real=seguridad            pred=baches_y_pavimento   conf=0.84 rev=NO  <<buenos dias!! Se hizo un un vache en circuito interior y marina Nacion>>
-  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.83 rev=NO  <<Te encargo que nos apoyes a presionar a ya que tienen un asco eje6 lle>>
-  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.79 rev=NO  <<Apoyo porque no hacen nada, tanto como no hacen nada desde hace meses,>>
-  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.76 rev=NO  <<Ayuda con esta coladera o registro SIN TAPA, ahora en PALMAS 1005, Gra>>
-  real=alumbrado_publico    pred=seguridad            conf=0.75 rev=NO  <<Luminarias apagadas en toda la calle de Durango en la col. Roma Norte,>>
-  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.75 rev=NO  <<mucho quitas puestos, pero para cuando arreglas las coladeras de las c>>
-  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.73 rev=NO  <<En las banquetas que pusieron en la esquina de Av. Luis Spota y Calzad>>
-  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.72 rev=NO  <<Ésta coladera DETERIORADA está en la estación GARIBALDI de la línea 7 >>
-  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.67 rev=NO  <<La ciudad se nos cae a pedazos, socavones, tráfico, y cada que hay una>>
-  real=baches_y_pavimento   pred=seguridad            conf=0.64 rev=NO  <<PILARES ESQUINA CAPULÍN 2.- MORAS ENTRE FELIX CUEVAS Y SAN LORENZO. PA>>
-  real=baches_y_pavimento   pred=recoleccion_basura   conf=0.56 rev=sí  <<ya sabes que desde el viernes estan quitando los confibicis en todo di>>
-  real=seguridad            pred=recoleccion_basura   conf=0.50 rev=sí  <<No se a que área le toca las escaleras del sobre congreso de la unión >>
-  real=seguridad            pred=baches_y_pavimento   conf=0.48 rev=sí  <<ayuda por favor necesito sacar mi auto y no puedo por qué hay gente af>>
-  real=baches_y_pavimento   pred=seguridad            conf=0.38 rev=sí  <<aquí cumpliendo 5 años, 372 llantas ponchadas 57 accidentes graves y n>>
+  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.94 rev=NO  <<buenas tardes , en la calle de Augusto Rodin y Carracci hay un socavón>>
+  real=seguridad            pred=alumbrado_publico    conf=0.94 rev=NO  <<Caos por semáforo apagado en Av. Universidad y Río Churubusco, urgen a>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.94 rev=NO  <<Ya solucionen ese problema en el carrizal, san Miguel #>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.94 rev=NO  <<Buenas noches, CONTINÚAN LUMINARIAS DESCOMPUESTAS Ó APAGADAS, en Eje 3>>
+  real=fuga_de_agua         pred=seguridad            conf=0.94 rev=NO  <<Choque y fuga en . Un carro tiró mi moto estacionada en la Col. Amplia>>
+  real=baches_y_pavimento   pred=seguridad            conf=0.93 rev=NO  <<Buenos días, quisiera levantar un reporte de vehículos abandonados en >>
+  real=alumbrado_publico    pred=fuga_de_agua         conf=0.92 rev=NO  <<otra vez!!! Sin luz, viene y va cada 10 segundos, No puede ser!!! Col.>>
+  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.92 rev=NO  <<Escombros abandonados por obras en la banqueta de Av. Revolución impid>>
+  real=baches_y_pavimento   pred=alumbrado_publico    conf=0.90 rev=NO  <<La ciudad se nos cae a pedazos, socavones, tráfico, y cada que hay una>>
+  real=baches_y_pavimento   pred=recoleccion_basura   conf=0.90 rev=NO  <<Así las porquerías de arreglo en banquetas de la col. Doctores. Y un á>>
+  real=baches_y_pavimento   pred=recoleccion_basura   conf=0.87 rev=NO  <<Solicitamos la Colocación de Señalamientos Peatonales ( Cebras ) en el>>
+  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.86 rev=NO  <<Ayuda con este registro sin tapa en Sierra Gorda 42 Gracias>>
+  real=alumbrado_publico    pred=fuga_de_agua         conf=0.86 rev=NO  <<Vengan y arreglen su cagadero, 7 pinches días con fallas en el suminis>>
+  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.84 rev=NO  <<pido su apoyo para quitar escombro de calle Jacobo watt entre calle fo>>
+  real=recoleccion_basura   pred=baches_y_pavimento   conf=0.83 rev=NO  <<Hay una rama grande de un arból caida en carriles centrales de Aquiles>>
+  real=alumbrado_publico    pred=seguridad            conf=0.80 rev=NO  <<Luminarias apagadas en toda la calle de Durango en la col. Roma Norte,>>
+  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.80 rev=NO  <<Alcantarilla metálica en pésimo estado en Calz. Ermita Iztapalapa esqu>>
+  real=baches_y_pavimento   pred=seguridad            conf=0.80 rev=NO  <<Gracias, coordinamos con personal de tránsito para su atención.>>
+  real=fuga_de_agua         pred=baches_y_pavimento   conf=0.75 rev=NO  <<por favor nos pueden apoyar con el bacheo ya q se volvió a abrir despu>>
+  real=baches_y_pavimento   pred=fuga_de_agua         conf=0.74 rev=NO  <<nos apoyas para aquien le corresponda o hagan desasolve de estás dos c>>
+  real=baches_y_pavimento   pred=seguridad            conf=0.74 rev=NO  <<aquí cumpliendo 5 años, 372 llantas ponchadas 57 accidentes graves y n>>
+  real=alumbrado_publico    pred=seguridad            conf=0.68 rev=NO  <<Ya se los proporcionó desde el post, resuélvanle el tema. Chingo de fa>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.68 rev=NO  <<YA ARREGLEN LOS PENDEJOS APAGONES EN TODA LA ZONA DE MAYORCA Y AL REDE>>
+  real=alumbrado_publico    pred=baches_y_pavimento   conf=0.48 rev=sí  <<Los trabajos incluyen la perforación, colocación y cimentación de las >>
 
 Lecturas sugeridas para la memoria:
 - Los errores en clases minoritarias reflejan escasez de datos, no

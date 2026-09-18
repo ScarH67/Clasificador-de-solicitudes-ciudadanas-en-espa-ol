@@ -1,10 +1,10 @@
 {
-  "folio": "CDMX-F384137D",
+  "folio": "CDMX-D530D883",
   "texto_original": "Hay un bache enorme en la esquina de mi calle, ya se dañaron varios coches, ayuda porfa",
   "categoria": "baches_y_pavimento",
-  "confianza": 0.891,
+  "confianza": 0.903,
   "estado_revision": "automatico",
-  "fecha_hora": "2026-09-18T16:51:09",
+  "fecha_hora": "2026-09-18T17:58:02",
   "metadatos": {
     "modelo": "tfidf_logreg_calibrado",
     "umbral_abstencion": 0.6

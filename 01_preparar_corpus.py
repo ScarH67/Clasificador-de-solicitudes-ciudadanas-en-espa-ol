@@ -61,7 +61,57 @@ d3 = d3.rename(columns={"entidad_dirigida": "entidad", "texto_queja": "texto"})
 d3["fuente"] = "twitter_con_alcaldia"
 fuentes.append(d3[["texto", "entidad", "alcaldia", "fecha", "fuente"]])
 
+# Cuarta fuente (opcional): tweets reales descargados, ya filtrados y
+# pre-etiquetados por 08_preparar_raw.py. Traen su propia etiqueta, que se
+# respeta (metodo "regla_texto_raw") y queda sujeta a validación de anotadores.
+f4 = os.path.join(BASE, "fuentes", "tweets_raw_ciudadanos.csv")
+if os.path.exists(f4):
+    d4 = pd.read_csv(f4)
+    d4 = d4.rename(columns={"categoria": "categoria_pre"})
+    d4["alcaldia"] = ""; d4["fecha"] = ""; d4["fuente"] = "tweets_raw_x"
+    fuentes.append(d4[["texto", "entidad", "alcaldia", "fecha", "fuente",
+                       "categoria_pre"]])
+
+# Quinta fuente (opcional): "Corpus final real.csv" — tweets reales curados y
+# etiquetados por el equipo (453 a mano, resto por keywords). Sus etiquetas se
+# respetan; el método distingue manual de automático para la revisión.
+# Se toma la versión más reciente del corpus curado: v2 contiene íntegro al
+# anterior (verificado: 1,275/1,275 textos) más Locatel y fuentes de Puebla.
+f5 = os.path.join(BASE, "raw", "Corpus final v2.csv")
+if not os.path.exists(f5):
+    f5 = os.path.join(BASE, "raw", "Corpus final real.csv")
+if os.path.exists(f5):
+    d5 = pd.read_csv(f5)
+    d5["texto"] = (d5["texto"].astype(str)
+                   .str.replace(r"\s+", " ", regex=True).str.strip())
+    d5["categoria"] = d5["categoria"].replace(
+        {"recrecoleccion_basura": "recoleccion_basura"})  # typo en origen
+    d5 = d5.rename(columns={"categoria": "categoria_pre",
+                            "metodo_etiqueta": "metodo_pre"})
+    d5["metodo_pre"] = d5["metodo_pre"].map(
+        {"manual": "manual",
+         "automatico_keywords": "regla_texto_raw",
+         "automatico_keywords_estricto": "regla_texto_raw"}
+    ).fillna("regla_texto_raw")
+    d5["entidad"] = d5["fuente"].map({
+        "Twitter/X - SEGIAGUA": "@SEGIAGUA_CDMX",
+        "Twitter/X - SOBSE": "@SOBSECDMX",
+        "Twitter/X - SSC_CDMX": "@SSC_CDMX",
+        "c5_cdmx": "@C5_CDMX",
+        "Twitter/X - locatel": "@locatel_mx",
+        "limpia_puebla": "@LimpiaPuebla",
+        "agua_de_puebla": "@aguadepuebla",
+        "ssp_puebla": "@SSP_Puebla"}).fillna("")
+    d5["alcaldia"] = d5["alcaldia"].replace({"X": ""})
+    d5["fuente"] = "corpus_final_real"
+    fuentes.append(d5[["texto", "entidad", "alcaldia", "fecha", "fuente",
+                       "categoria_pre", "metodo_pre"]])
+
 df = pd.concat(fuentes, ignore_index=True)
+if "categoria_pre" not in df.columns:
+    df["categoria_pre"] = None
+if "metodo_pre" not in df.columns:
+    df["metodo_pre"] = None
 n_inicial = len(df)
 
 # ---------- 2. Limpieza básica y deduplicación ----------
@@ -110,6 +160,10 @@ PRIOR_ENTIDAD = {  # apoyo cuando el texto no decide por sí solo
 }
 
 def etiquetar(row):
+    if isinstance(row.get("categoria_pre"), str) and row["categoria_pre"]:
+        met = row.get("metodo_pre")
+        return row["categoria_pre"], (met if isinstance(met, str) and met
+                                      else "regla_texto_raw")
     t = row["texto_norm"]
     hits = [cat for cat, pat in REGLAS if re.search(pat, t)]
     if len(hits) == 1:

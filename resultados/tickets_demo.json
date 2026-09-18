@@ -1,77 +1,77 @@
 [
   {
-    "folio": "CDMX-203131A9",
+    "folio": "CDMX-98FCA3BE",
     "texto_original": "Hay un bache enorme en Eje 8 esquina con Popocatépetl, ya tronó varias llantas",
     "categoria": "baches_y_pavimento",
-    "confianza": 0.91,
+    "confianza": 0.922,
     "posible_fuera_de_alcance": false,
     "estado_revision": "automatico",
-    "fecha_hora": "2026-09-18T16:51:18",
+    "fecha_hora": "2026-09-18T17:58:15",
     "metadatos": {
       "modelo": "tfidf_logreg_calibrado",
       "umbral_abstencion": 0.6
     }
   },
   {
-    "folio": "CDMX-1FB94251",
+    "folio": "CDMX-F6F31B58",
     "texto_original": "llevamos 5 dias sin agua en la col. portales, ya ni pipas mandan :(",
     "categoria": "fuga_de_agua",
-    "confianza": 0.929,
+    "confianza": 0.928,
     "posible_fuera_de_alcance": false,
     "estado_revision": "automatico",
-    "fecha_hora": "2026-09-18T16:51:18",
+    "fecha_hora": "2026-09-18T17:58:15",
     "metadatos": {
       "modelo": "tfidf_logreg_calibrado",
       "umbral_abstencion": 0.6
     }
   },
   {
-    "folio": "CDMX-C0B33D03",
+    "folio": "CDMX-92024490",
     "texto_original": "las luminarias de mi calle llevan un mes fundidas, esta oscurisimo",
     "categoria": "alumbrado_publico",
-    "confianza": 0.786,
+    "confianza": 0.708,
     "posible_fuera_de_alcance": false,
     "estado_revision": "automatico",
-    "fecha_hora": "2026-09-18T16:51:18",
+    "fecha_hora": "2026-09-18T17:58:15",
     "metadatos": {
       "modelo": "tfidf_logreg_calibrado",
       "umbral_abstencion": 0.6
     }
   },
   {
-    "folio": "CDMX-CFD723AD",
+    "folio": "CDMX-7FDC0C29",
     "texto_original": "el camion de la basura no pasa desde el martes y ya hay un tiradero",
     "categoria": "recoleccion_basura",
-    "confianza": 0.533,
-    "posible_fuera_de_alcance": false,
-    "estado_revision": "requiere_revision",
-    "fecha_hora": "2026-09-18T16:51:18",
-    "metadatos": {
-      "modelo": "tfidf_logreg_calibrado",
-      "umbral_abstencion": 0.6
-    }
-  },
-  {
-    "folio": "CDMX-0BD0E03D",
-    "texto_original": "anoche asaltaron a mi vecino, pedimos mas patrullaje en la zona",
-    "categoria": "seguridad",
-    "confianza": 0.66,
+    "confianza": 0.956,
     "posible_fuera_de_alcance": false,
     "estado_revision": "automatico",
-    "fecha_hora": "2026-09-18T16:51:18",
+    "fecha_hora": "2026-09-18T17:58:15",
     "metadatos": {
       "modelo": "tfidf_logreg_calibrado",
       "umbral_abstencion": 0.6
     }
   },
   {
-    "folio": "CDMX-3AA381ED",
+    "folio": "CDMX-647FC02C",
+    "texto_original": "anoche asaltaron a mi vecino, pedimos mas patrullaje en la zona",
+    "categoria": "seguridad",
+    "confianza": 0.733,
+    "posible_fuera_de_alcance": false,
+    "estado_revision": "automatico",
+    "fecha_hora": "2026-09-18T17:58:15",
+    "metadatos": {
+      "modelo": "tfidf_logreg_calibrado",
+      "umbral_abstencion": 0.6
+    }
+  },
+  {
+    "folio": "CDMX-0B498ED6",
     "texto_original": "quiero informacion sobre el seguro de desempleo",
     "categoria": "alumbrado_publico",
-    "confianza": 0.509,
+    "confianza": 0.5,
     "posible_fuera_de_alcance": true,
     "estado_revision": "requiere_revision",
-    "fecha_hora": "2026-09-18T16:51:18",
+    "fecha_hora": "2026-09-18T17:58:15",
     "metadatos": {
       "modelo": "tfidf_logreg_calibrado",
       "umbral_abstencion": 0.6

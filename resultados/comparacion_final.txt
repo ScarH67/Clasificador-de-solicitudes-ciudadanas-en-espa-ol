@@ -1,10 +1,10 @@
 COMPARACIÓN FINAL BASELINE vs. BETO (mismo conjunto de prueba)
 
                  accuracy  f1_macro  cobertura  f1_macro_emitidos
-TF-IDF + LogReg     0.806     0.778      0.733              0.863
-BETO                0.912     0.912      0.945              0.938
+TF-IDF + LogReg     0.872     0.872      0.844              0.922
+BETO                0.915     0.919      0.993              0.921
 
-Mejora de BETO en F1 macro: +0.134
+Mejora de BETO en F1 macro: +0.047
 
 Criterio de decisión (sección 4.6):
 → BETO supera de manera consistente al baseline: se adopta BETO como modelo del prototipo.
@@ -12,26 +12,43 @@ Criterio de decisión (sección 4.6):
 F1 por clase — baseline:
                     precision    recall  f1-score   support
 
- alumbrado_publico      0.725     0.921     0.811        63
-baches_y_pavimento      0.807     0.767     0.786        60
-      fuga_de_agua      0.900     0.818     0.857        44
-recoleccion_basura      1.000     0.455     0.625        11
-         seguridad      0.857     0.769     0.811        39
+ alumbrado_publico      0.887     0.873     0.880        63
+baches_y_pavimento      0.829     0.883     0.855        77
+      fuga_de_agua      0.945     0.912     0.929        57
+recoleccion_basura      0.919     0.829     0.872        41
+         seguridad      0.804     0.841     0.822        44
 
-          accuracy                          0.806       217
-         macro avg      0.858     0.746     0.778       217
-      weighted avg      0.821     0.806     0.804       217
+          accuracy                          0.872       282
+         macro avg      0.877     0.868     0.872       282
+      weighted avg      0.875     0.872     0.873       282
 
 F1 por clase — BETO:
                     precision    recall  f1-score   support
 
- alumbrado_publico      0.967     0.937     0.952        63
-baches_y_pavimento      0.881     0.867     0.874        60
-      fuga_de_agua      0.894     0.955     0.923        44
-recoleccion_basura      0.846     1.000     0.917        11
-         seguridad      0.919     0.872     0.895        39
+ alumbrado_publico      0.965     0.873     0.917        63
+baches_y_pavimento      0.883     0.883     0.883        77
+      fuga_de_agua      0.915     0.947     0.931        57
+recoleccion_basura      0.950     0.927     0.938        41
+         seguridad      0.878     0.977     0.925        44
 
-          accuracy                          0.912       217
-         macro avg      0.901     0.926     0.912       217
-      weighted avg      0.914     0.912     0.912       217
+          accuracy                          0.915       282
+         macro avg      0.918     0.922     0.919       282
+      weighted avg      0.917     0.915     0.915       282
 
+
+================================================================
+CURVA COBERTURA / RIESGO DE BETO (corpus v4, test n=282)
+Elección operativa del umbral de abstención — sección 4.5/4.6
+ umbral  cobertura  errores emitidos  acierto en lo emitido
+   0.60     99.3%          23                 0.918
+   0.70     97.5%          21                 0.924
+   0.80     93.6%          16                 0.939
+   0.85     91.8%          13                 0.950
+   0.90     86.5%           9                 0.963
+   0.92     82.6%           8                 0.966
+   0.94     67.4%           2                 0.989
+Recomendación para la memoria: 0.90 como punto de operación
+(86.5% de cobertura automática con 9 errores en 282), en lugar del
+0.60 heredado del corpus pequeño. BETO está mejor calibrado pero
+más confiado: sus errores llegan con confianza ~0.83, por lo que el
+umbral debe recalibrarse con el corpus final.

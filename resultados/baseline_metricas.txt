@@ -1,32 +1,32 @@
 BASELINE TF-IDF + REGRESIÓN LOGÍSTICA — RESULTADOS SOBRE PRUEBA
-Fecha: 2026-09-18 16:51
-Train: 1012  Val: 217  Test: 217
+Fecha: 2026-09-18 17:58
+Train: 1320  Val: 282  Test: 282
 
-Accuracy (referencia):        0.806
-F1 macro (métrica principal): 0.778   (criterio de éxito: >= 0.80)
-ECE (calibración):            0.070
+Accuracy (referencia):        0.872
+F1 macro (métrica principal): 0.872   (criterio de éxito: >= 0.80)
+ECE (calibración):            0.086
 Umbral de abstención:         0.60
-Cobertura automática:         73.3% (159/217 tickets emitidos sin revisión)
-F1 macro solo casos emitidos: 0.863
+Cobertura automática:         84.4% (238/282 tickets emitidos sin revisión)
+F1 macro solo casos emitidos: 0.922
 
 Reporte por clase:
                     precision    recall  f1-score   support
 
- alumbrado_publico      0.725     0.921     0.811        63
-baches_y_pavimento      0.807     0.767     0.786        60
-      fuga_de_agua      0.900     0.818     0.857        44
-recoleccion_basura      1.000     0.455     0.625        11
-         seguridad      0.857     0.769     0.811        39
+ alumbrado_publico      0.887     0.873     0.880        63
+baches_y_pavimento      0.829     0.883     0.855        77
+      fuga_de_agua      0.945     0.912     0.929        57
+recoleccion_basura      0.919     0.829     0.872        41
+         seguridad      0.804     0.841     0.822        44
 
-          accuracy                          0.806       217
-         macro avg      0.858     0.746     0.778       217
-      weighted avg      0.821     0.806     0.804       217
+          accuracy                          0.872       282
+         macro avg      0.877     0.868     0.872       282
+      weighted avg      0.875     0.872     0.873       282
 
 
 Matriz de confusión (filas = real, columnas = predicho):
                     alumbrado_publico  baches_y_pavimento  fuga_de_agua  recoleccion_basura  seguridad
-alumbrado_publico                  58                   4             0                   0          1
-baches_y_pavimento                  9                  46             3                   0          2
-fuga_de_agua                        5                   2            36                   0          1
-recoleccion_basura                  1                   4             0                   5          1
-seguridad                           7                   1             1                   0         30
+alumbrado_publico                  55                   5             0                   0          3
+baches_y_pavimento                  1                  68             3                   3          2
+fuga_de_agua                        2                   2            52                   0          1
+recoleccion_basura                  0                   4             0                  34          3
+seguridad                           4                   3             0                   0         37
