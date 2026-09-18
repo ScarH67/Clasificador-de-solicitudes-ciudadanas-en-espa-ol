@@ -1,37 +1,37 @@
 REPORTE DE CONSTRUCCIÓN DEL CORPUS
-Registros iniciales (3 fuentes): 10312
-Tras limpieza básica:            10309
-Textos únicos (deduplicados):    2914
-Plantillas únicas (sin dígitos): 2427
-Tras tope de 3 por plantilla:    2437
-Dentro de las 5 categorías:      1446
+Registros iniciales (3 fuentes): 10791
+Tras limpieza básica:            10788
+Textos únicos (deduplicados):    3352
+Plantillas únicas (sin dígitos): 2864
+Tras tope de 3 por plantilla:    2875
+Dentro de las 5 categorías:      1884
 Fuera de alcance (excluidos):    991
 
 Distribución de clases (corpus útil):
-  alumbrado_publico        417  (28.8 %)
-  baches_y_pavimento       399  (27.6 %)
-  fuga_de_agua             292  (20.2 %)
-  seguridad                267  (18.5 %)
-  recoleccion_basura        71  (4.9 %)
+  baches_y_pavimento       516  (27.4 %)
+  alumbrado_publico        417  (22.1 %)
+  fuga_de_agua             382  (20.3 %)
+  seguridad                298  (15.8 %)
+  recoleccion_basura       271  (14.4 %)
 
 Método de etiquetado:
-  regla_texto_raw          845
-  manual                   413
+  regla_texto_raw         1286
+  manual                   410
   prior_entidad            103
   regla_texto               84
   regla_texto_multiple       1
 
 Partición por grupos de plantilla (sin fuga entre conjuntos):
-  train=1012  val=217  test=217
+  train=1320  val=282  test=282
 
 Distribución por partición y categoría:
 particion           test  train  val
 categoria                           
 alumbrado_publico     63    291   63
-baches_y_pavimento    60    279   60
-fuga_de_agua          44    204   44
-recoleccion_basura    11     49   11
-seguridad             39    189   39
+baches_y_pavimento    77    362   77
+fuga_de_agua          57    268   57
+recoleccion_basura    41    189   41
+seguridad             44    210   44
 
 ADVERTENCIA: las fuentes actuales son en gran parte plantillas
 repetidas (8,100 filas -> pocas plantillas reales). El corpus
