@@ -1,72 +1,87 @@
-# Borrador del capítulo de resultados (v5 — corpus real)
+# Capítulo de resultados (v6 — corpus final)
 
 **Clasificador de solicitudes ciudadanas en español con generación automática de tickets en CDMX**
-Estado al 18 de septiembre de 2026 · Corpus v3 (1,446 ejemplos, mayoritariamente tweets reales; 413 etiquetados a mano) · BETO adoptado como modelo del prototipo · Pendiente: Kappa de Cohen entre anotadores
+UNIR — Maestría en Inteligencia Artificial · 18 de septiembre de 2026
+Corpus final: 1,884 solicitudes reales · Modelo adoptado: BETO (F1 macro 0.919) · Pendiente: Kappa de Cohen entre anotadores
 
 ---
 
 ## 1. Construcción del corpus (E1)
 
-El corpus evolucionó en tres versiones que en sí mismas documentan la metodología:
+El corpus se construyó en cuatro iteraciones que documentan por sí mismas la metodología del proyecto:
 
-| Versión | Fuente dominante | Ejemplos útiles | Naturaleza |
+| Versión | Fuente incorporada | Ejemplos útiles | Naturaleza |
 |---|---|---|---|
 | v1 | 3 Excel originales | 188 | Plantillas sintéticas (8,100 filas → 383 plantillas reales) |
-| v2 | + tweets raw (CFE/Segiagua/SOBSE) | 314 | Mixto; 1,506 mensajes institucionales filtrados |
-| **v3** | **+ "Corpus final real.csv"** | **1,446** | **Tweets reales curados por el equipo; 413 etiquetas manuales** |
+| v2 | + tweets raw (CFE, Segiagua, SOBSE) | 314 | Mixto; 1,506 mensajes institucionales filtrados |
+| v3 | + "Corpus final real.csv" | 1,446 | Tweets reales curados por el equipo |
+| **v4** | **+ "Corpus final v2.csv" (Locatel, Puebla)** | **1,884** | **Corpus final: reportes ciudadanos reales** |
 
-Distribución v3: alumbrado_publico 417 (28.8%), baches_y_pavimento 399 (27.6%), fuga_de_agua 292 (20.2%), seguridad 267 (18.5%), recoleccion_basura 71 (4.9%). Partición por grupos de plantilla sin fuga de información: train 1,012 / val 217 / test 217. Además, 991 textos fuera de alcance alimentan el detector auxiliar.
+Distribución final: baches_y_pavimento 516 (27.4%), alumbrado_publico 417 (22.1%), fuga_de_agua 382 (20.3%), seguridad 298 (15.8%), recoleccion_basura 271 (14.4%). El desbalance severo de las primeras versiones (basura con 6 ejemplos) quedó resuelto: ninguna clase baja de 14% y la razón entre la mayor y la menor es 1.9:1. Partición por grupos de plantilla sin fuga de información: **train 1,320 / val 282 / test 282**. Otros 991 textos fuera de alcance alimentan el detector auxiliar.
 
-El pipeline (`08` → `01`) es reproducible: deduplicación exacta y por plantilla (dígitos colapsados, máximo 3 ejemplares), filtrado de mensajes institucionales por reglas léxicas, corrección de codificación y de etiquetas (p. ej. el typo `recrecoleccion_basura`), y pre-etiquetado que respeta las etiquetas manuales del equipo y marca el método de cada registro para su revisión.
+Se verificó que "Corpus final v2.csv" contiene íntegramente al anterior (1,275 de 1,275 textos), por lo que el pipeline toma solo el archivo más reciente y no duplica registros. El etiquetado combina 410 etiquetas manuales del equipo con reglas automáticas (estrictas y estándar), y cada registro conserva el método con que fue etiquetado para su revisión.
 
-La auditoría del SUAC/0311 (ficha en `fuentes/`) mostró que el dataset público no incluye texto libre; se usó como catálogo oficial y evidencia de pertinencia (las 5 categorías cubren ~53% del volumen real de 2020; el propio 0311 opera un clasificador de IA en producción).
+El pipeline completo (`08` → `01`) es reproducible con semilla fija: deduplicación exacta y por plantilla (dígitos colapsados, máximo 3 ejemplares por plantilla), filtrado léxico de mensajes institucionales, corrección de codificación y de etiquetas inconsistentes, y partición por grupos que impide repartir variantes casi idénticas entre conjuntos.
 
-## 2. Comparación de modelos y decisión (E2, E3 / HU-05–HU-07)
+La auditoría de la fuente SUAC/0311 (ficha en `fuentes/`) determinó que el dataset público no publica el texto libre de las solicitudes; se incorporó como catálogo oficial de categorías y evidencia de pertinencia — las cinco categorías del prototipo cubren ~53% del volumen real de solicitudes de 2020, y el propio Sistema 0311 opera un clasificador automático en producción.
 
-Ambos modelos se entrenaron y evaluaron con las mismas particiones del corpus v3; BETO con fine-tuning en Colab (GPU), pérdida ponderada por clase y calibración por temperatura; el baseline con TF-IDF (1–2 gramas), regresión logística balanceada y calibración sigmoide. Cruce formal fila por fila sobre el test (n=217):
+## 2. Comparación de modelos y decisión (E2, E3 / HU-05 a HU-07)
+
+Ambos modelos se entrenaron y evaluaron sobre las mismas particiones. Baseline: TF-IDF (1–2 gramas, `class_weight` balanceado) + regresión logística con calibración sigmoide. BETO: fine-tuning de `dccuchile/bert-base-spanish-wwm-cased` en Colab (GPU) con pérdida ponderada por clase y calibración por temperatura. Cruce formal fila por fila sobre el conjunto de prueba (n=282):
 
 | Métrica | TF-IDF + LogReg | **BETO** |
 |---|---|---|
-| Accuracy | 0.806 | **0.912** |
-| **F1 macro** | 0.778 | **0.912** ✓ supera el criterio de 0.80 |
-| Cobertura automática (umbral 0.60) | 73.3% | 94.5% |
-| F1 macro en emitidos | 0.863 | 0.938 |
-| Errores totales / emitidos sin revisión | 42 / 16 | **19 / 15** |
+| Accuracy | 0.872 | **0.915** |
+| **F1 macro** | 0.872 ✓ | **0.919** ✓ |
+| Cobertura automática (umbral 0.60) | 84.4% | 99.3% |
+| F1 macro en emitidos | 0.922 | 0.921 |
+| Errores totales | 36 | **24** |
 
-F1 por clase de BETO: alumbrado 0.952, fuga_de_agua 0.923, recoleccion_basura 0.917, seguridad 0.895, baches 0.874 — las cinco clases por encima de 0.87, incluida basura (la minoritaria), donde el baseline se quedó en 0.625.
+F1 por clase de BETO: recoleccion_basura 0.938, fuga_de_agua 0.931, seguridad 0.925, alumbrado 0.917, baches 0.883 — **las cinco categorías por encima de 0.88**, incluida la que era minoritaria. El baseline, con el corpus final, también supera el criterio (0.872) y mantiene todas sus clases sobre 0.82.
 
-**Decisión (criterio 4.6): se adopta BETO como modelo del prototipo.** La mejora es consistente en todas las clases (+0.134 de F1 macro global), y con mayor cobertura BETO comete menos errores absolutos emitidos (15) que el baseline (16) cubriendo 21 puntos más de solicitudes. El baseline se conserva como referencia reproducible sin GPU.
+**Decisión (criterio 4.6): se adopta BETO como modelo del prototipo.** Mejora el F1 macro en +0.047, reduce los errores absolutos de 36 a 24 (un tercio menos) y su ventaja es homogénea entre clases. El baseline se conserva como referencia reproducible y alternativa de despliegue sin GPU, con un desempeño que hoy también satisface el criterio de éxito.
 
 **Evolución de la comparación a lo largo del proyecto** (hallazgo metodológico central):
 
 | Corpus (train) | F1 baseline | F1 BETO | Ganador |
 |---|---|---|---|
-| v1 — 130 plantillas | 0.585 | 0.556 | Baseline |
-| v2 — 218 mixto | 0.732 | 0.916* | BETO |
-| v3 — 1,012 reales | 0.778 | **0.912** | **BETO** |
+| v1 — 130 plantillas sintéticas | 0.585 | 0.556 | Baseline |
+| v3 — 1,012 reales | 0.778 | 0.912 | BETO |
+| **v4 — 1,320 reales (final)** | **0.872** | **0.919** | **BETO** |
 
-*El 0.916 de v2 provino de un test pequeño (n=48); el 0.912 de v3 (n=217) es la cifra robusta. La lección para la memoria: con datos escasos el Transformer no justificaba su costo; el valor de la representación contextual apareció al alcanzar masa crítica de datos reales — exactamente la hipótesis experimental planteada en la sección 3.3.4, resuelta con evidencia y no por suposición.
+La lectura para la memoria: con datos escasos y sintéticos el Transformer no justificaba su costo; al alcanzar masa crítica de texto ciudadano real, la representación contextual se impuso. Esto resuelve con evidencia la hipótesis experimental de la sección 3.3.4 y confirma que el cuello de botella nunca fue el algoritmo sino el corpus — nótese que el baseline ganó 0.287 puntos de F1 macro sin cambiar una sola línea de su configuración, solo con mejores datos.
 
 ## 3. Calibración y abstención (E5 / HU-09, HU-10)
 
-Con validación de 217 casos la calibración del baseline mejoró a ECE 0.070 (era 0.224 con 28 casos). Con texto 100% real, la abstención en 0.60 ya no atrapa todos los errores (fenómeno esperado al salir de las plantillas): el baseline emite 16 errores y BETO 15, con coberturas de 73.3% y 94.5% respectivamente. El intercambio cobertura-riesgo debe fijarse como decisión operativa: subir el umbral de BETO reduce errores automáticos a costa de más revisión humana; la curva completa puede trazarse desde `resultados/predicciones_test_beto.csv`. El detector de fuera de alcance (991 ejemplos, accuracy 0.79 macro en su validación de 6 clases) sigue como alerta que fuerza revisión.
+Con 282 casos de validación, el ECE del baseline se estabilizó en 0.086 (era 0.224 con 28 casos). BETO está mejor calibrado en su acierto, pero es más confiado: la confianza media en sus errores es 0.833 frente a 0.927 en sus aciertos, de modo que el umbral de 0.60 — heredado del corpus pequeño — deja pasar prácticamente todo (99.3% de cobertura, 23 errores emitidos). El umbral debe recalibrarse con el corpus final. Curva cobertura-riesgo de BETO sobre el test:
+
+| Umbral | Cobertura automática | Errores emitidos | Acierto en lo emitido |
+|---|---|---|---|
+| 0.60 | 99.3% | 23 | 0.918 |
+| 0.80 | 93.6% | 16 | 0.939 |
+| **0.90** | **86.5%** | **9** | **0.963** |
+| 0.94 | 67.4% | 2 | 0.989 |
+
+**Punto de operación recomendado: 0.90** — mantiene 86.5% de canalización automática reduciendo los errores emitidos de 23 a 9, con 96.3% de acierto en lo que se emite sin revisión. La decisión final del umbral es operativa, no técnica: depende de cuánta revisión humana esté dispuesta a absorber la institución, y este análisis le entrega la curva para decidirlo con datos.
+
+El detector auxiliar de fuera de alcance (entrenado con los 991 textos excluidos) continúa operando como alerta: no altera la categoría del ticket, pero fuerza revisión humana cuando detecta un texto ajeno a las cinco categorías.
 
 ## 4. Prototipo: tickets, API e interfaz (E4 / HU-08)
 
-Flujo completo texto → clasificación calibrada → alerta fuera de alcance → abstención → ticket (Tabla 3), disponible como script de demo, **API REST FastAPI** (`/clasificar`, `/salud`, Swagger en `/docs`) e **interfaz web** conforme a los wireframes. Tiempo técnico de generación: ~1.2 ms de mediana (p95 1.4 ms) con el baseline en una máquina sin GPU. Para servir BETO en producción la inferencia en CPU es viable (decenas de ms por solicitud); el modelo entrenado se conserva descargando `beto_cdmx_final.zip` de Colab.
+El flujo completo —texto libre → clasificación calibrada → alerta de fuera de alcance → regla de abstención → ticket estructurado conforme a la Tabla 3— está disponible en tres formas: script de demostración (`05_demo_tickets.py`), **servicio REST con FastAPI** (`07_api.py`: endpoints `/clasificar` y `/salud`, documentación Swagger en `/docs`) e **interfaz web** de captura y resultado conforme a los wireframes de la Figura 2. Tiempo técnico de generación del ticket: **1.3 ms de mediana (p95 1.4 ms)** con el baseline en una máquina sin GPU; esta cifra mide el prototipo y no debe confundirse con tiempos de atención institucional. Para servir BETO, la inferencia en CPU es viable en el orden de decenas de milisegundos por solicitud.
 
 ## 5. Análisis de errores (E6 / HU-12)
 
-Detalle en `resultados/analisis_errores.txt`. Los errores de ambos modelos se concentran en fronteras semánticas reales del lenguaje ciudadano: encharcamientos que dañan pavimento (fuga vs. baches), oscuridad e inseguridad (alumbrado vs. seguridad), y escombro/tiradero (basura vs. baches). En el baseline la confianza media en errores (0.57) es claramente menor que en aciertos, señal de calibración útil. Estos casos límite coinciden con los documentados en la guía de anotación, lo que valida su diseño.
+Detalle completo en `resultados/analisis_errores.txt`. Los 24 errores de BETO se concentran en fronteras semánticas genuinas del lenguaje ciudadano, no en fallos arbitrarios: socavones producidos por fugas de agua (fuga vs. bache), semáforos apagados reportados como falta de luz (alumbrado vs. seguridad vial), escombro de obra acumulado en banquetas (basura vs. pavimento) y mensajes que encadenan varias quejas en un mismo texto. Son exactamente los casos límite que la guía de anotación documenta, lo que valida su diseño y señala el trabajo pendiente: refinar las definiciones de frontera antes que aumentar la complejidad del modelo.
 
-## 6. Conclusiones y cierre
+## 6. Conclusiones
 
-1. **El criterio de éxito se cumple:** F1 macro 0.912 ≥ 0.80 sobre un conjunto de prueba independiente de 217 solicitudes reales, con F1 ≥ 0.87 en las cinco categorías.
-2. **La decisión de modelo se tomó con el procedimiento previsto** (criterio 4.6) y cambió con la evidencia: baseline con datos escasos, BETO con el corpus real — la comparación cumplió su propósito Lean.
-3. El MVP completo (clasificar + calibrar + abstenerse + ticket + API + interfaz) es funcional y reproducible; el pipeline de datos es re-ejecutable de extremo a extremo.
-4. Limitaciones: recolección_basura sigue subrepresentada (71); parte del etiquetado es automático por reglas; el corpus proviene de X y de tres dependencias, no de todos los canales.
-5. **Único pendiente metodológico: el acuerdo entre anotadores.** Llenar `corpus/muestra_control_anotacion.csv` (dos personas, guía en `GUIA_ANOTACION.md`) y correr `04_kappa_anotacion.py` para reportar Kappa de Cohen. Con ese dato, este capítulo está completo para integrarse a la memoria.
+1. **El criterio de éxito se cumple con holgura:** F1 macro de 0.919 sobre un conjunto de prueba independiente de 282 solicitudes ciudadanas reales, con las cinco categorías por encima de 0.88. El baseline alcanza 0.872, de modo que el proyecto dispone de dos modelos válidos con perfiles de costo distintos.
+2. **La decisión de modelo se tomó con el procedimiento previsto y cambió con la evidencia:** el criterio 4.6 favoreció al baseline con datos escasos y a BETO con el corpus real. La comparación cumplió su propósito Lean de no pagar complejidad sin justificación medida.
+3. **El MVP completo es funcional y reproducible:** clasificación, calibración, abstención, generación de tickets, API e interfaz, con el pipeline de datos re-ejecutable de extremo a extremo desde las fuentes crudas.
+4. **Limitaciones a declarar:** el corpus proviene de X (Twitter) y de un conjunto acotado de dependencias de CDMX y Puebla, no de todos los canales de atención; parte del etiquetado es automático por reglas; y el umbral de abstención requiere una decisión operativa institucional que excede el alcance del prototipo.
+5. **Pendiente metodológico único:** el acuerdo entre anotadores. Completar `corpus/muestra_control_anotacion.csv` (dos anotadores, siguiendo `GUIA_ANOTACION.md`) y ejecutar `04_kappa_anotacion.py` para reportar el Kappa de Cohen. Con ese dato, el capítulo queda completo para integrarse a la memoria.
 
 ---
 
-*Reproducibilidad: `08` → `01` → `02` → `02b` → (Colab `03_beto_colab.ipynb`) → `03` → `05` → `06`; semilla fija 42; cifras en `resultados/`.*
+*Reproducibilidad: `08` → `01` → `02` → `02b` → (Colab `03_beto_colab.ipynb`) → `03` → `05` → `06`; semilla fija 42; todas las cifras provienen de archivos en `resultados/`.*
