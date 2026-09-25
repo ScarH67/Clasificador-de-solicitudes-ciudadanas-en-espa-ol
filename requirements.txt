@@ -16,6 +16,12 @@ fastapi==0.141.1
 uvicorn[standard]==0.52.4
 pydantic==2.13.5
 
-# El fine-tuning de BETO (03_beto_colab.ipynb) se ejecuta en Google Colab;
-# sus dependencias (transformers, datasets, torch) se instalan en el notebook
-# y NO son necesarias para correr el prototipo ni la API.
+# API con el modelo ganador BETO (09_api_beto.py, sección 4.6)
+# El fine-tuning en sí (03_beto_colab.ipynb) se sigue ejecutando en Google
+# Colab. Estas dos son solo para SERVIR el modelo ya entrenado (CPU, sin
+# GPU) a partir de resultados/Beto CDMX Final.zip:
+transformers==5.17.0
+torch>=2.2,<3
+
+# Nota: si solo vas a correr el baseline (07_api.py) y no 09_api_beto.py,
+# puedes omitir transformers y torch — son ~1-2 GB de descarga.
