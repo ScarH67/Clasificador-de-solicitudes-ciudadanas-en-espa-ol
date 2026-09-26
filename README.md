@@ -108,7 +108,7 @@ Tiempo técnico de generación de un ticket (baseline, sin GPU): mediana 1.3 ms 
 
 Matriz de confusión del modelo baseline sobre el conjunto de prueba:
 
-![Matriz de confusión del baseline TF-IDF + regresión logística](RESULTADOS/matriz_confusion.png)
+![Matriz de confusión del baseline TF-IDF + regresión logística](resultados/matriz_confusion.png)
 
 > Agrega aquí una captura de la interfaz web (disponible en `http://127.0.0.1:8000` al ejecutar `07_api.py`) y de la documentación Swagger en `/docs`.
 
