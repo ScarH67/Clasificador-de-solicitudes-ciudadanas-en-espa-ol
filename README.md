@@ -154,11 +154,11 @@ Este tiempo mide solo el procesamiento del prototipo, no el tiempo de atención 
 
 Matrices de confusión del baseline y de BETO sobre el conjunto de prueba:
 
-![Matrices de confusión del baseline TF-IDF + regresión logística y de BETO](RESULTADOS/matrices_confusion_baseline_beto.png)
+![Matrices de confusión del baseline TF-IDF + regresión logística y de BETO](resultados/matrices_confusion_baseline_beto.png)
 
 Curva de confiabilidad de ambos modelos:
 
-![Curva de confiabilidad del baseline y de BETO calibrado](RESULTADOS/curva_confiabilidad.png)
+![Curva de confiabilidad del baseline y de BETO calibrado](resultados/curva_confiabilidad.png)
 
 Interfaz web del MVP y ticket generado por la API con BETO calibrado:
 
