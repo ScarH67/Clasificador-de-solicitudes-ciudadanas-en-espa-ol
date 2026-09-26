@@ -63,7 +63,8 @@ El desarrollo se organizó con Design Thinking, Scrum y Lean: cuatro Sprints (de
 | `CORPUS/corpus_completo.csv` | Corpus consolidado y etiquetado (id, texto, categoría, método de etiquetado, entidad, alcaldía, fecha, fuente). |
 | `CORPUS/train.csv`, `val.csv`, `test.csv` | Partición por grupos de plantilla, sin fuga de información entre conjuntos. |
 | `CORPUS/excluidos_fuera_alcance.csv` | Textos fuera de las 5 categorías, usados para entrenar el detector auxiliar ("guardián"). |
-| `CORPUS/muestra_control_anotacion.csv` | Muestra independiente de 67 registros para el cálculo del acuerdo entre anotadores (Kappa de Cohen). |
+| `RESULTADOS/Registros LOCATEL codificación Kappa.xlsx` | Codificación independiente de 67 publicaciones dirigidas a LOCATEL por dos evaluadores, guía de codificación y cálculo del Kappa de Cohen (κ = 0.919). |
+| `CORPUS/muestra_control_anotacion.csv` | Chequeo automático de consistencia entre el pre-etiquetado por reglas y las predicciones de BETO (60 casos de prueba). No es la medición de acuerdo humano; ver `CORPUS/NOTA_muestra_control.md`. |
 | `CORPUS/reporte_corpus.txt` | Reporte automático de construcción: conteos, deduplicación y distribución de clases. |
 | `x_exportador_posts_comentado.js` | Userscript de recolección de publicaciones visibles en una sesión de X. |
 
@@ -83,7 +84,7 @@ Distribución del corpus final: baches y pavimento 516 (27.4 %), alumbrado públ
 
 Partición: **1,320** entrenamiento · **282** validación · **282** prueba. Los duplicados y las variantes de una misma plantilla se trataron antes de particionar, y el conjunto de prueba no se usó en ninguna etapa de entrenamiento ni de ajuste.
 
-**Acuerdo entre anotadores:** sobre una muestra independiente de 67 registros (6 descartados por los evaluadores), el Kappa de Cohen fue **κ = 0.919** en 61 pares, con 93.44 % de acuerdo observado. Esta muestra no forma parte de las particiones del experimento.
+**Acuerdo entre anotadores:** dos evaluadores codificaron de forma independiente 67 publicaciones dirigidas a LOCATEL (12–21 de septiembre de 2026), que no forman parte del corpus de modelado. Además de las cinco categorías, podían marcar «No es posible determinar» o «Desechar». Tras excluir 6 pares marcados para desechar, el Kappa de Cohen fue **κ = 0.919** en 61 pares, con 57 acuerdos (93.44 % de acuerdo observado frente a 18.92 % esperado por azar). La codificación y el cálculo están en `RESULTADOS/Registros LOCATEL codificación Kappa.xlsx`.
 
 ## Arquitectura
 
@@ -104,7 +105,7 @@ Partición: **1,320** entrenamiento · **282** validación · **282** prueba. Lo
 | Modelo base | `02_baseline_tfidf.py` | Entrena TF-IDF + regresión logística, calibra, evalúa y genera un ticket de ejemplo |
 | Fine-tuning BETO | `03_beto_colab.ipynb` | Ajuste fino de BETO en Google Colab (GPU) con calibración por temperatura |
 | Comparación de modelos | `03_comparar_modelos.py` | Compara baseline vs. BETO sobre el mismo conjunto de prueba y aplica el criterio de decisión del proyecto |
-| Acuerdo entre anotadores | `04_kappa_anotacion.py` | Calcula el Kappa de Cohen sobre la muestra de control |
+| Acuerdo entre anotadores | `RESULTADOS/Registros LOCATEL codificación Kappa.xlsx` · `04_kappa_anotacion.py` | El Kappa reportado se calculó en la hoja «Guía y kappa» del Excel; el script calcula el Kappa sobre un CSV con dos columnas de anotación |
 | API + interfaz web | `07_api.py` | Sirve el modelo vía FastAPI (`/clasificar`, `/salud`) y una interfaz web de captura y resultado en la raíz |
 
 **Stack principal:** Python · pandas · NumPy · scikit-learn · FastAPI · Uvicorn · Pydantic · Transformers/BETO (Colab) · joblib · matplotlib · GitHub · Azure DevOps.
@@ -119,17 +120,17 @@ Comparación sobre el mismo conjunto de prueba (n = 282):
 | F1 macro | 0.872 | **0.919** |
 | Errores en prueba | 36 | **24** |
 
-Ambos modelos superan el criterio de éxito del proyecto (F1 macro ≥ 0.80). **BETO fue adoptado como modelo del prototipo**: mejora el F1 macro en 0.047 y reduce los errores de 36 a 24. El baseline se conserva como alternativa de contingencia sin GPU.
+Ambos modelos superan el criterio de éxito del proyecto (F1 macro ≥ 0.80). La diferencia favorece a BETO, pero con evidencia moderada: prueba exacta de McNemar p = 0.081 (26 casos solo acertados por BETO frente a 14 solo por el baseline) e intervalo bootstrap del 95 % para la diferencia de F1 macro de [0.003, 0.092]. **BETO fue adoptado como modelo del prototipo**: mejora el F1 macro en 0.047 y reduce los errores de 36 a 24. El baseline se conserva como alternativa de contingencia sin GPU.
 
-F1 de BETO por categoría:
+F1 por categoría:
 
-| Categoría | Precision | Recall | F1 |
-|---|---|---|---|
-| Alumbrado público | 0.965 | 0.873 | 0.917 |
-| Baches y pavimento | 0.883 | 0.883 | 0.883 |
-| Fuga de agua | 0.915 | 0.947 | 0.931 |
-| Recolección de basura | 0.950 | 0.927 | 0.938 |
-| Seguridad | 0.878 | 0.977 | 0.925 |
+| Categoría | Precision | Recall | F1 BETO | F1 baseline |
+|---|---|---|---|---|
+| Alumbrado público | 0.965 | 0.873 | 0.917 | 0.880 |
+| Baches y pavimento | 0.883 | 0.883 | 0.883 | 0.855 |
+| Fuga de agua | 0.915 | 0.947 | 0.931 | 0.929 |
+| Recolección de basura | 0.950 | 0.927 | 0.938 | 0.872 |
+| Seguridad | 0.878 | 0.977 | 0.925 | 0.822 |
 
 ### Calibración, abstención y cobertura (BETO)
 
@@ -140,7 +141,7 @@ F1 de BETO por categoría:
 | **0.90** | **86.5 %** | **9** | **96.3 %** |
 | 0.94 | 67.4 % | 2 | 98.9 % |
 
-El MVP opera con un **umbral de abstención de 0.90**: el 86.5 % de las solicitudes se procesa automáticamente con 96.3 % de acierto y el resto pasa a revisión humana. El umbral no es una regla institucional; depende del riesgo aceptable y de la capacidad de revisión disponible. El Expected Calibration Error del baseline es 0.086.
+El MVP opera con un **umbral de abstención de 0.90**: el 86.5 % de las solicitudes se procesa automáticamente con 96.3 % de acierto y el resto pasa a revisión humana. El umbral no es una regla institucional; depende del riesgo aceptable y de la capacidad de revisión disponible. El Expected Calibration Error es 0.086 para el baseline y 0.051 para BETO calibrado (10 intervalos); la curva de confiabilidad está en `RESULTADOS/curva_confiabilidad.png`.
 
 ### Tiempo técnico de generación del ticket
 
@@ -151,9 +152,13 @@ Este tiempo mide solo el procesamiento del prototipo, no el tiempo de atención 
 
 ## Capturas de pantalla
 
-Matriz de confusión del modelo baseline sobre el conjunto de prueba:
+Matrices de confusión del baseline y de BETO sobre el conjunto de prueba:
 
-![Matriz de confusión del baseline TF-IDF + regresión logística](resultados/matriz_confusion.png)
+![Matrices de confusión del baseline TF-IDF + regresión logística y de BETO](RESULTADOS/matrices_confusion_baseline_beto.png)
+
+Curva de confiabilidad de ambos modelos:
+
+![Curva de confiabilidad del baseline y de BETO calibrado](RESULTADOS/curva_confiabilidad.png)
 
 Interfaz web del MVP y ticket generado por la API con BETO calibrado:
 
@@ -195,7 +200,7 @@ python3 02_baseline_tfidf.py       # entrena y evalúa el baseline, genera RESUL
 # En Google Colab: ejecutar 03_beto_colab.ipynb con CORPUS/train.csv, val.csv y test.csv,
 # descargar predicciones_test_beto.csv y guardarlo en RESULTADOS/
 python3 03_comparar_modelos.py     # compara baseline vs. BETO
-python3 04_kappa_anotacion.py      # calcula el Kappa de Cohen sobre la muestra de control
+# El Kappa de Cohen reportado (κ = 0.919) está en RESULTADOS/Registros LOCATEL codificación Kappa.xlsx
 ```
 
 ### Error conocido: `ModuleNotFoundError: No module named 'sklearn.frozen'`
@@ -243,6 +248,9 @@ El repositorio no incluye todavía configuración de despliegue en la nube (no h
 │   ├── comparacion_final.txt
 │   ├── analisis_errores.txt
 │   ├── matriz_confusion.png
+│   ├── matrices_confusion_baseline_beto.png
+│   ├── curva_confiabilidad.png
+│   ├── Registros LOCATEL codificación Kappa.xlsx
 │   └── ticket_ejemplo.json
 ├── capturas/
 │   ├── pantalla_beto_respuesta.png
