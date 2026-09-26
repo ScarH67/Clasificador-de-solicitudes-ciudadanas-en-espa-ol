@@ -58,15 +58,15 @@ El desarrollo se organizó con Design Thinking, Scrum y Lean: cuatro Sprints (de
 
 ### Datos del corpus
 
-| Archivo / carpeta | Contenido |
-|---|---|
-| `CORPUS/corpus_completo.csv` | Corpus consolidado y etiquetado (id, texto, categoría, método de etiquetado, entidad, alcaldía, fecha, fuente). |
-| `CORPUS/train.csv`, `val.csv`, `test.csv` | Partición por grupos de plantilla, sin fuga de información entre conjuntos. |
-| `CORPUS/excluidos_fuera_alcance.csv` | Textos fuera de las 5 categorías, usados para entrenar el detector auxiliar ("guardián"). |
-| `RESULTADOS/Registros LOCATEL codificación Kappa.xlsx` | Codificación independiente de 67 publicaciones dirigidas a LOCATEL por dos evaluadores, guía de codificación y cálculo del Kappa de Cohen (κ = 0.919). |
-| `CORPUS/muestra_control_anotacion.csv` | Chequeo automático de consistencia entre el pre-etiquetado por reglas y las predicciones de BETO (60 casos de prueba). No es la medición de acuerdo humano; ver `CORPUS/NOTA_muestra_control.md`. |
-| `CORPUS/reporte_corpus.txt` | Reporte automático de construcción: conteos, deduplicación y distribución de clases. |
-| `x_exportador_posts_comentado.js` | Userscript de recolección de publicaciones visibles en una sesión de X. |
+| Archivo / carpeta                                      | Contenido |
+|--------------------------------------------------------|---|
+| `CORPUS/corpus_completo.csv`                           | Corpus consolidado y etiquetado (id, texto, categoría, método de etiquetado, entidad, alcaldía, fecha, fuente). |
+| `CORPUS/train.csv`, `val.csv`, `test.csv`              | Partición por grupos de plantilla, sin fuga de información entre conjuntos. |
+| `CORPUS/excluidos_fuera_alcance.csv`                   | Textos fuera de las 5 categorías, usados para entrenar el detector auxiliar ("guardián"). |
+| `resultados/Registros LOCATEL codificación Kappa.xlsx` | Codificación independiente de 67 publicaciones dirigidas a LOCATEL por dos evaluadores, guía de codificación y cálculo del Kappa de Cohen (κ = 0.919). |
+| `CORPUS/muestra_control_anotacion.csv`                 | Chequeo automático de consistencia entre el pre-etiquetado por reglas y las predicciones de BETO (60 casos de prueba). No es la medición de acuerdo humano; ver `CORPUS/NOTA_muestra_control.md`. |
+| `CORPUS/reporte_corpus.txt`                            | Reporte automático de construcción: conteos, deduplicación y distribución de clases. |
+| `x_exportador_posts_comentado.js`                      | Userscript de recolección de publicaciones visibles en una sesión de X. |
 
 ## Construcción del corpus
 
@@ -84,7 +84,7 @@ Distribución del corpus final: baches y pavimento 516 (27.4 %), alumbrado públ
 
 Partición: **1,320** entrenamiento · **282** validación · **282** prueba. Los duplicados y las variantes de una misma plantilla se trataron antes de particionar, y el conjunto de prueba no se usó en ninguna etapa de entrenamiento ni de ajuste.
 
-**Acuerdo entre anotadores:** dos evaluadores codificaron de forma independiente 67 publicaciones dirigidas a LOCATEL (12–21 de septiembre de 2026), que no forman parte del corpus de modelado. Además de las cinco categorías, podían marcar «No es posible determinar» o «Desechar». Tras excluir 6 pares marcados para desechar, el Kappa de Cohen fue **κ = 0.919** en 61 pares, con 57 acuerdos (93.44 % de acuerdo observado frente a 18.92 % esperado por azar). La codificación y el cálculo están en `RESULTADOS/Registros LOCATEL codificación Kappa.xlsx`.
+**Acuerdo entre anotadores:** dos evaluadores codificaron de forma independiente 67 publicaciones dirigidas a LOCATEL (12–21 de septiembre de 2026), que no forman parte del corpus de modelado. Además de las cinco categorías, podían marcar «No es posible determinar» o «Desechar». Tras excluir 6 pares marcados para desechar, el Kappa de Cohen fue **κ = 0.919** en 61 pares, con 57 acuerdos (93.44 % de acuerdo observado frente a 18.92 % esperado por azar). La codificación y el cálculo están en `resultados/Registros LOCATEL codificación Kappa.xlsx`.
 
 ## Arquitectura
 
@@ -98,15 +98,15 @@ Partición: **1,320** entrenamiento · **282** validación · **282** prueba. Lo
 
 ### Componentes y scripts
 
-| Etapa | Script / archivo | Función |
-|---|---|---|
-| Adquisición de datos | `x_exportador_posts_comentado.js` | Userscript que extrae publicaciones de X hacia CSV/TXT |
-| Preparación del corpus | `01_preparar_corpus.py` | Unifica fuentes, corrige codificación, deduplica (exacto + plantillas), etiqueta y genera la partición train/val/test |
-| Modelo base | `02_baseline_tfidf.py` | Entrena TF-IDF + regresión logística, calibra, evalúa y genera un ticket de ejemplo |
-| Fine-tuning BETO | `03_beto_colab.ipynb` | Ajuste fino de BETO en Google Colab (GPU) con calibración por temperatura |
-| Comparación de modelos | `03_comparar_modelos.py` | Compara baseline vs. BETO sobre el mismo conjunto de prueba y aplica el criterio de decisión del proyecto |
-| Acuerdo entre anotadores | `RESULTADOS/Registros LOCATEL codificación Kappa.xlsx` · `04_kappa_anotacion.py` | El Kappa reportado se calculó en la hoja «Guía y kappa» del Excel; el script calcula el Kappa sobre un CSV con dos columnas de anotación |
-| API + interfaz web | `07_api.py` | Sirve el modelo vía FastAPI (`/clasificar`, `/salud`) y una interfaz web de captura y resultado en la raíz |
+| Etapa | Script / archivo                                                                 | Función |
+|---|----------------------------------------------------------------------------------|---|
+| Adquisición de datos | `x_exportador_posts_comentado.js`                                                | Userscript que extrae publicaciones de X hacia CSV/TXT |
+| Preparación del corpus | `01_preparar_corpus.py`                                                          | Unifica fuentes, corrige codificación, deduplica (exacto + plantillas), etiqueta y genera la partición train/val/test |
+| Modelo base | `02_baseline_tfidf.py`                                                           | Entrena TF-IDF + regresión logística, calibra, evalúa y genera un ticket de ejemplo |
+| Fine-tuning BETO | `03_beto_colab.ipynb`                                                            | Ajuste fino de BETO en Google Colab (GPU) con calibración por temperatura |
+| Comparación de modelos | `03_comparar_modelos.py`                                                         | Compara baseline vs. BETO sobre el mismo conjunto de prueba y aplica el criterio de decisión del proyecto |
+| Acuerdo entre anotadores | `resultados/Registros LOCATEL codificación Kappa.xlsx` · `04_kappa_anotacion.py` | El Kappa reportado se calculó en la hoja «Guía y kappa» del Excel; el script calcula el Kappa sobre un CSV con dos columnas de anotación |
+| API + interfaz web | `07_api.py`                                                                      | Sirve el modelo vía FastAPI (`/clasificar`, `/salud`) y una interfaz web de captura y resultado en la raíz |
 
 **Stack principal:** Python · pandas · NumPy · scikit-learn · FastAPI · Uvicorn · Pydantic · Transformers/BETO (Colab) · joblib · matplotlib · GitHub · Azure DevOps.
 
@@ -141,7 +141,21 @@ F1 por categoría:
 | **0.90** | **86.5 %** | **9** | **96.3 %** |
 | 0.94 | 67.4 % | 2 | 98.9 % |
 
-El MVP opera con un **umbral de abstención de 0.90**: el 86.5 % de las solicitudes se procesa automáticamente con 96.3 % de acierto y el resto pasa a revisión humana. El umbral no es una regla institucional; depende del riesgo aceptable y de la capacidad de revisión disponible. El Expected Calibration Error es 0.086 para el baseline y 0.051 para BETO calibrado (10 intervalos); la curva de confiabilidad está en `RESULTADOS/curva_confiabilidad.png`.
+El MVP opera con un **umbral de abstención de 0.90**: el 86.5 % de las solicitudes se procesa automáticamente con 96.3 % de acierto y el resto pasa a revisión humana. El umbral no es una regla institucional; depende del riesgo aceptable y de la capacidad de revisión disponible. El Expected Calibration Error es 0.086 para el baseline y 0.051 para BETO calibrado (10 intervalos); la curva de confiabilidad está en `resultados/curva_confiabilidad.png`.
+
+### Validación externa con etiquetas humanas (muestra LOCATEL)
+
+El MVP (BETO calibrado, umbral 0.90 y guardián) se aplicó a los 67 registros de LOCATEL codificados por los dos evaluadores, que no forman parte del corpus (`10_validar_locatel_beto.py` → `resultados/validacion_locatel_beto.csv`).
+
+| Indicador | Resultado |
+|---|---|
+| Acierto frente al consenso humano (51 casos) | 41/51 = **80.4 %** |
+| Kappa BETO vs. evaluador A / B | 0.730 / 0.742 (humano vs. humano: 0.919) |
+| Casos marcados como posible fuera de alcance por el guardián | 49/67 |
+| Casos de consenso procesados automáticamente | 18/51, con 88.9 % de acierto |
+| Casos ambiguos o descartados por algún evaluador enviados a revisión | 16/16 |
+
+La confianza calibrada no se mantuvo fuera del corpus (94 % de los casos de consenso con confianza ≥ 0.90, incluidos errores); la revisión humana depende en la práctica del guardián. La muestra es pequeña y el resultado se considera preliminar.
 
 ### Tiempo técnico de generación del ticket
 
@@ -196,11 +210,11 @@ Para reproducir el pipeline completo desde cero:
 
 ```bash
 python3 01_preparar_corpus.py      # genera CORPUS/
-python3 02_baseline_tfidf.py       # entrena y evalúa el baseline, genera RESULTADOS/
+python3 02_baseline_tfidf.py       # entrena y evalúa el baseline, genera resultados/
 # En Google Colab: ejecutar 03_beto_colab.ipynb con CORPUS/train.csv, val.csv y test.csv,
-# descargar predicciones_test_beto.csv y guardarlo en RESULTADOS/
+# descargar predicciones_test_beto.csv y guardarlo en resultados/
 python3 03_comparar_modelos.py     # compara baseline vs. BETO
-# El Kappa de Cohen reportado (κ = 0.919) está en RESULTADOS/Registros LOCATEL codificación Kappa.xlsx
+# El Kappa de Cohen reportado (κ = 0.919) está en resultados/Registros LOCATEL codificación Kappa.xlsx
 ```
 
 ### Error conocido: `ModuleNotFoundError: No module named 'sklearn.frozen'`
@@ -233,6 +247,8 @@ El repositorio no incluye todavía configuración de despliegue en la nube (no h
 ├── 03_comparar_modelos.py
 ├── 04_kappa_anotacion.py
 ├── 07_api.py
+├── 09_api_beto.py
+├── 10_validar_locatel_beto.py
 ├── x_exportador_posts_comentado.js
 ├── requirements.txt
 ├── CORPUS/
@@ -241,7 +257,7 @@ El repositorio no incluye todavía configuración de despliegue en la nube (no h
 │   ├── excluidos_fuera_alcance.csv
 │   ├── muestra_control_anotacion.csv
 │   └── reporte_corpus.txt
-├── RESULTADOS/
+├── resultados/
 │   ├── modelo_baseline.joblib
 │   ├── modelo_guardian.joblib
 │   ├── baseline_metricas.txt
