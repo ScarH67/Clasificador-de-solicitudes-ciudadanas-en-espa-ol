@@ -1,0 +1,88 @@
+# ---------------------------------------------------------------------------
+#  Los contenedores del sistema de reportes ciudadanos.
+# ---------------------------------------------------------------------------
+#  Se levanta con:     docker compose up -d
+#  Se apaga con:       docker compose down
+#  Se ve el log con:   docker compose logs -f reportes_php
+#
+#  Este archivo NO crea una base de datos. Se conecta a la que ya tienes
+#  corriendo. Por eso la red de hasta abajo está marcada como "external":
+#  para que estos dos contenedores entren a la misma red que tu MySQL y se
+#  puedan ver por nombre.
+#
+#  OJO: el nombre de la red hay que confirmarlo antes de levantar esto.
+#  Está explicado en DOCKER.md, en el paso 2. Si no coincide, docker se
+#  queja con "network ... not found" y no arranca nada.
+# ---------------------------------------------------------------------------
+
+version: "3.8"
+
+services:
+
+  # -------------------------------------------------------------------------
+  #  PHP. Aquí corre el código; nginx le pasa las peticiones.
+  # -------------------------------------------------------------------------
+  reportes_php:
+    build: ./docker
+    image: reportes_php56:1.0
+    container_name: reportes_php
+    restart: unless-stopped
+
+    volumes:
+      # El código se monta desde el disco del servidor en vez de copiarse
+      # dentro de la imagen. Así, para corregir un archivo basta con subirlo
+      # por scp y no hay que reconstruir ni reiniciar nada.
+      #
+      # La "z" del final es para SELinux: el proyecto vive dentro de /root, y
+      # los archivos de ahí llevan una etiqueta que los contenedores no pueden
+      # leer. Sin esa letra, nginx y PHP dan "permission denied" y no se
+      # entiende por qué. En un servidor sin SELinux no molesta: se ignora.
+      - ./:/var/www/reportes:z
+
+    environment:
+      TZ: America/Mexico_City
+
+    networks:
+      - legacy
+
+  # -------------------------------------------------------------------------
+  #  nginx. Es el único que queda expuesto al exterior.
+  # -------------------------------------------------------------------------
+  reportes_web:
+    image: nginx:1.20-alpine
+    container_name: reportes_web
+    restart: unless-stopped
+
+    depends_on:
+      - reportes_php
+
+    ports:
+      # El número de la izquierda es el puerto del servidor; el de la derecha
+      # es el de adentro del contenedor, que no se toca.
+      # Si el 8080 ya está ocupado, se cambia solo el de la izquierda.
+      - "8080:80"
+
+    volumes:
+      # La "z" es la misma etiqueta de SELinux que arriba; "ro" es de solo
+      # lectura, porque nginx no necesita escribir nada.
+      - ./:/var/www/reportes:ro,z
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+    networks:
+      - legacy
+
+networks:
+  legacy:
+    external: true
+    # -----------------------------------------------------------------------
+    #  CONFIRMAR ESTE NOMBRE ANTES DE LEVANTAR.
+    #
+    #  Se averigua así, desde el servidor:
+    #
+    #    docker inspect legacy_mysql56 \
+    #      --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}'
+    #
+    #  Lo que imprima es lo que va aquí. Normalmente es el nombre de la
+    #  carpeta donde está tu docker-compose.yml viejo, más "_default".
+    # -----------------------------------------------------------------------
+    name: legacy_default
