@@ -153,7 +153,7 @@ Este tiempo mide solo el procesamiento del prototipo, no el tiempo de atención 
 
 Matriz de confusión del modelo baseline sobre el conjunto de prueba:
 
-![Matriz de confusión del baseline TF-IDF + regresión logística](RESULTADOS/matriz_confusion.png)
+![Matriz de confusión del baseline TF-IDF + regresión logística](resultados/matriz_confusion.png)
 
 Interfaz web del MVP y ticket generado por la API con BETO calibrado:
 
