@@ -2,7 +2,7 @@
 
 Prototipo de clasificación multiclase de solicitudes ciudadanas en español, con generación automática de tickets, desarrollado para la Ciudad de México (CDMX). Trabajo de innovación — UNIR, Maestría en Inteligencia Artificial.
 
-**Equipo:** Edith Marcela Flores Urbieta (Scrum Master) · Ricardo Díaz Ochoa (Desarrollo) · Oscar Rodríguez Valentín (Product Owner)
+**Equipo:** Edith Marcela Flores Urbieta (Scrum Master) · Ricardo Díaz Ochoa (Desarrollo) · Oscar Rodríguez Valentín (Product Owner).
 
 > **Modelo adoptado:** BETO (fine-tuning) calibrado — F1 macro **0.919** sobre 282 solicitudes de prueba, frente a **0.872** del baseline TF-IDF + regresión logística.
 
