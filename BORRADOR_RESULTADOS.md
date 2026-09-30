@@ -15,7 +15,7 @@ El corpus se construyó en cuatro iteraciones que documentan por sí mismas la m
 | v1 | 3 Excel originales | 188 | Plantillas sintéticas (8,100 filas → 383 plantillas reales) |
 | v2 | + tweets raw (CFE, Segiagua, SOBSE) | 314 | Mixto; 1,506 mensajes institucionales filtrados |
 | v3 | + "Corpus final real.csv" | 1,446 | Tweets reales curados por el equipo |
-| **v4** | **+ "Corpus final v2.csv" (Locatel, Puebla)** | **1,884** | **Corpus final: reportes ciudadanos reales** |
+| **v4** | **+ "Corpus final v2.csv" (Locatel)** | **1,884** | **Corpus final: reportes ciudadanos reales** |
 
 Distribución final: baches_y_pavimento 516 (27.4%), alumbrado_publico 417 (22.1%), fuga_de_agua 382 (20.3%), seguridad 298 (15.8%), recoleccion_basura 271 (14.4%). El desbalance severo de las primeras versiones (basura con 6 ejemplos) quedó resuelto: ninguna clase baja de 14% y la razón entre la mayor y la menor es 1.9:1. Partición por grupos de plantilla sin fuga de información: **train 1,320 / val 282 / test 282**. Otros 991 textos fuera de alcance alimentan el detector auxiliar.
 
@@ -79,7 +79,7 @@ Detalle completo en `resultados/analisis_errores.txt`. Los 24 errores de BETO se
 1. **El criterio de éxito se cumple con holgura:** F1 macro de 0.919 sobre un conjunto de prueba independiente de 282 solicitudes ciudadanas reales, con las cinco categorías por encima de 0.88. El baseline alcanza 0.872, de modo que el proyecto dispone de dos modelos válidos con perfiles de costo distintos.
 2. **La decisión de modelo se tomó con el procedimiento previsto y cambió con la evidencia:** el criterio 4.6 favoreció al baseline con datos escasos y a BETO con el corpus real. La comparación cumplió su propósito Lean de no pagar complejidad sin justificación medida.
 3. **El MVP completo es funcional y reproducible:** clasificación, calibración, abstención, generación de tickets, API e interfaz, con el pipeline de datos re-ejecutable de extremo a extremo desde las fuentes crudas.
-4. **Limitaciones a declarar:** el corpus proviene de X (Twitter) y de un conjunto acotado de dependencias de CDMX y Puebla, no de todos los canales de atención; parte del etiquetado es automático por reglas; y el umbral de abstención requiere una decisión operativa institucional que excede el alcance del prototipo.
+4. **Limitaciones a declarar:** el corpus proviene de X (Twitter) y de un conjunto acotado de dependencias de CDMX, no de todos los canales de atención; parte del etiquetado es automático por reglas; y el umbral de abstención requiere una decisión operativa institucional que excede el alcance del prototipo.
 5. **Pendiente metodológico único:** el acuerdo entre anotadores. Completar `corpus/muestra_control_anotacion.csv` (dos anotadores, siguiendo `GUIA_ANOTACION.md`) y ejecutar `04_kappa_anotacion.py` para reportar el Kappa de Cohen. Con ese dato, el capítulo queda completo para integrarse a la memoria.
 
 ---
