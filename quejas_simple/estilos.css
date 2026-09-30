@@ -84,7 +84,9 @@ a {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    flex-wrap: wrap;
+    /* Sin wrap: el menú va siempre en el mismo renglón que el nombre del
+       sitio. El que se encoge, si hace falta, es el nombre. */
+    flex-wrap: nowrap;
     min-height: 62px;
 }
 
@@ -93,6 +95,10 @@ a {
     font-size: 1.05rem;
     text-decoration: none;
     color: var(--tinta);
+    /* min-width: 0 es lo que permite que un elemento flexible se encoja por
+       debajo del ancho de su contenido. Sin esto, la leyenda empuja el menú
+       al renglón de abajo. */
+    min-width: 0;
 }
 
 .menu {
@@ -100,6 +106,9 @@ a {
     align-items: center;
     gap: 18px;
     font-size: 0.92rem;
+    /* El menú nunca se encoge ni se parte en dos renglones. */
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .menu a {
@@ -179,16 +188,41 @@ a {
     margin: 6px 0 0;
 }
 
+/* --- Botones ------------------------------------------------------------
+   Son tres tamaños del mismo botón:
+
+       .boton             la acción principal, relleno azul
+       .boton-secundario  una acción secundaria, blanco con borde
+       .boton-mini        la versión chica, para dentro de la tabla
+
+   Los tres comparten la misma base a propósito. Antes cada uno traía su
+   propio relleno, su propio borde y su propio tamaño de letra, y al verlos
+   juntos en la misma página se notaba que eran de familias distintas.
+   ------------------------------------------------------------------------ */
+
 .boton,
-.boton-secundario {
+.boton-secundario,
+.boton-mini {
     display: inline-block;
-    padding: 11px 22px;
     border: 1px solid transparent;
     border-radius: 6px;
     font: inherit;
     font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
     cursor: pointer;
     text-decoration: none;
+}
+
+.boton,
+.boton-secundario {
+    padding: 11px 22px;
+}
+
+.boton-mini {
+    padding: 5px 12px;
+    font-size: 0.78rem;
 }
 
 .boton {
@@ -200,13 +234,15 @@ a {
     background: var(--principal-osc);
 }
 
-.boton-secundario {
+.boton-secundario,
+.boton-mini {
     background: var(--blanco);
     color: var(--principal);
     border-color: var(--borde);
 }
 
-.boton-secundario:hover {
+.boton-secundario:hover,
+.boton-mini:hover {
     border-color: var(--principal);
 }
 
@@ -319,6 +355,13 @@ a {
     margin: 0;
 }
 
+/* En el resumen técnico las etiquetas son largas ("Qué tan seguro estuvo el
+   sistema"), así que la primera columna va más ancha que en el panel, para
+   que no se partan en dos renglones. */
+.datos-tecnicos {
+    grid-template-columns: 260px 1fr;
+}
+
 .resumen {
     color: var(--tinta-suave);
     font-size: 0.9rem;
@@ -410,6 +453,80 @@ a {
     font-size: 0.9rem;
 }
 
+/* --- Etiquetas de clasificación ----------------------------------------- */
+
+/* Ojo: son cosa distinta de .etiqueta, que es el estado del trámite. Por eso
+   llevan su propio color. Gris para lo que salió automático, rojo para lo que
+   necesita que lo mire una persona, verde para lo que ya revisó alguien. */
+
+.etiqueta-auto {
+    background: var(--fondo);
+    color: var(--tinta-suave);
+}
+
+.etiqueta-rev {
+    background: var(--rojo-fondo);
+    color: var(--rojo);
+}
+
+.etiqueta-mano {
+    background: var(--verde-fondo);
+    color: var(--verde);
+}
+
+/* --- Nombre del sitio, con su leyenda debajo ---------------------------- */
+
+.marca-leyenda {
+    display: block;
+    font-weight: 400;
+    font-size: 0.72rem;
+    color: var(--tinta-suave);
+    line-height: 1.3;
+    /* Si el nombre del sitio creciera mucho, la leyenda se corta con puntos
+       suspensivos en vez de empujar el menú. */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- Botones de la tabla ------------------------------------------------ */
+
+.celda-acciones {
+    white-space: nowrap;
+}
+
+/* Los dos botones van en el mismo renglón y con la misma separación, para que
+   no queden uno encima del otro ni desalineados. */
+.acciones-fila {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.acciones-fila form {
+    display: flex;
+}
+
+/* --- Filtros de revisión ------------------------------------------------ */
+
+.filtro-rev {
+    border-style: dashed;
+}
+
+/* --- Metadatos del ticket ----------------------------------------------- */
+
+.json {
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 6px 0 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre;
+}
+
 /* --- Celular ------------------------------------------------------------ */
 
 @media (max-width: 640px) {
@@ -422,6 +539,14 @@ a {
         min-height: 0;
         padding-top: 12px;
         padding-bottom: 12px;
+        /* En un celular el menú no cabe junto al nombre. Se esconde la
+           leyenda (el aviso de proyecto universitario sigue en el pie) y, si
+           aun así no cupiera, el navegador parte el renglón. */
+        flex-wrap: wrap;
+    }
+
+    .marca-leyenda {
+        display: none;
     }
 
     .menu {
@@ -459,6 +584,17 @@ a {
     .tabla td {
         border: 0;
         padding: 4px 0;
+    }
+
+    /* En celular el renglón ya es una tarjeta, así que los botones pueden
+       acomodarse uno debajo del otro sin apretarse. */
+    .celda-acciones {
+        white-space: normal;
+        margin-top: 8px;
+    }
+
+    .acciones-fila {
+        flex-wrap: wrap;
     }
 
     .datos {

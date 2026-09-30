@@ -60,9 +60,6 @@ encabezado('Tu reporte');
                 <strong><?= e(nombre_categoria($reporte['categoria'])) ?></strong>,
                 que le corresponde a <strong><?= e(area_categoria($reporte['categoria'])) ?></strong>.
             </p>
-            <p class="ayuda">
-                Qué tan seguro estuvo el sistema: <?= number_format($reporte['confianza'] * 100, 1) ?>%
-            </p>
         <?php else: ?>
             <p>
                 Tu reporte quedó guardado, pero el sistema no pudo clasificarlo en
@@ -81,6 +78,33 @@ encabezado('Tu reporte');
         <h2>Lo que escribiste</h2>
         <p class="texto-reporte"><?= nl2br(e($reporte['texto'])) ?></p>
         <p class="ayuda">Enviado el <?= e(fecha_legible($reporte['creado_en'])) ?></p>
+    </div>
+
+    <div class="tarjeta">
+        <h2>Resumen técnico</h2>
+
+        <dl class="datos datos-tecnicos">
+            <dt>Qué tan seguro estuvo el sistema</dt>
+            <dd>
+                <?php if (!empty($reporte['categoria'])): ?>
+                    <?= e(confianza_legible($reporte['confianza'])) ?>
+                <?php else: ?>
+                    Sin clasificar
+                <?php endif; ?>
+            </dd>
+
+            <dt>Tiempo de respuesta</dt>
+            <dd><?= e(tiempo_legible($reporte['tiempo_ms'])) ?></dd>
+
+            <dt>Modelo usado</dt>
+            <dd><?= e(nombre_modelo($reporte['metadatos'])) ?></dd>
+        </dl>
+
+        <p class="ayuda">
+            Son datos del clasificador automático. Si el modelo no estaba
+            disponible en ese momento, el reporte se guarda igual y una persona
+            lo clasifica después.
+        </p>
     </div>
 
     <p><a class="boton-secundario" href="index.php">Reportar otro problema</a></p>

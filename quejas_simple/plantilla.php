@@ -28,7 +28,10 @@ function encabezado($titulo, $en_panel = false)
 
 <header class="cabecera">
     <div class="contenedor cabecera-fila">
-        <a class="marca" href="index.php"><?= e(SITIO_NOMBRE) ?></a>
+        <a class="marca" href="index.php">
+            <?= e(SITIO_NOMBRE) ?>
+            <span class="marca-leyenda"><?= e(SITIO_LEYENDA) ?></span>
+        </a>
 
         <nav class="menu">
             <?php if ($en_panel): ?>
@@ -56,7 +59,10 @@ function pie()
 
 <footer class="pie">
     <div class="contenedor">
-        <?= e(SITIO_DEPENDENCIA) ?> — <?= e(SITIO_NOMBRE) ?>
+        <?= e(SITIO_AVISO) ?>
+        <br>
+        Este sitio no es un servicio del gobierno ni un trámite oficial. Lo que
+        se manda aquí se usa únicamente con fines académicos.
     </div>
 </footer>
 

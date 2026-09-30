@@ -9,13 +9,14 @@
  * Si el reporte se guarda bien, se manda al ciudadano a la página del folio.
  * Se hace así (en vez de mostrar el resultado aquí mismo) para que si recarga
  * la página no se guarde el reporte dos veces.
+ *
+ * La zona horaria la pone config.php, que se incluye más abajo desde
+ * funciones.php. No hay que repetirla aquí.
  */
-
 require_once __DIR__ . '/funciones.php';
 require_once __DIR__ . '/plantilla.php';
 
 $errores = array();
-$nombre  = '';
 $colonia = '';
 $texto   = '';
 
@@ -24,7 +25,6 @@ $texto   = '';
 // ---------------------------------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nombre  = isset($_POST['nombre'])  ? trim($_POST['nombre'])  : '';
     $colonia = isset($_POST['colonia']) ? trim($_POST['colonia']) : '';
     $texto   = isset($_POST['texto'])   ? trim($_POST['texto'])   : '';
 
@@ -37,10 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'El reporte es muy corto. Explica un poco más qué está pasando.';
     } elseif ($largo > 2000) {
         $errores[] = 'El reporte es muy largo. El máximo son 2000 caracteres.';
-    }
-
-    if (mb_strlen($nombre, 'UTF-8') > 120) {
-        $errores[] = 'El nombre es demasiado largo.';
     }
 
     if (mb_strlen($colonia, 'UTF-8') > 120) {
@@ -61,19 +57,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Primero se guarda sin folio, porque el folio lleva el número que
         // MySQL asigna al insertar. Después se actualiza.
+        //
+        // El nombre ya no se guarda: por confidencialidad el formulario no lo
+        // pide. La columna sigue existiendo en la tabla, con los reportes
+        // viejos, pero las filas nuevas la dejan en blanco.
         $insertar = $pdo->prepare(
             'INSERT INTO quejas
-                 (folio, nombre, colonia, texto, estado, ip, creado_en)
+                 (folio, colonia, texto, estado, estado_revision, ip, creado_en)
              VALUES
-                 (NULL, :nombre, :colonia, :texto, :estado, :ip, NOW())'
+                 (NULL, :colonia, :texto, :estado, :estado_revision, :ip, NOW())'
         );
 
         $insertar->execute(array(
-            ':nombre'  => $nombre,
-            ':colonia' => $colonia,
-            ':texto'   => $texto,
-            ':estado'  => 'pendiente',
-            ':ip'      => ip_visitante(),
+            ':colonia'         => $colonia,
+            ':texto'           => $texto,
+            ':estado'          => 'pendiente',
+            ':estado_revision' => 'sin_clasificar',
+            ':ip'              => ip_visitante(),
         ));
 
         $id    = (int) $pdo->lastInsertId();
@@ -89,18 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = clasificar($texto);
 
         if ($resultado['ok']) {
-            $estado = $resultado['fuera_de_alcance'] ? 'pendiente' : 'canalizado';
-
-            $pdo->prepare(
-                'UPDATE quejas
-                    SET categoria = :categoria, confianza = :confianza, estado = :estado
-                  WHERE id = :id'
-            )->execute(array(
-                ':categoria' => $resultado['categoria'],
-                ':confianza' => $resultado['confianza'],
-                ':estado'    => $estado,
-                ':id'        => $id,
-            ));
+            guardar_clasificacion($id, $resultado);
         }
 
         // --- Al ciudadano -------------------------------------------------
@@ -126,6 +115,12 @@ encabezado('Reportar un problema');
     el rastro.
 </p>
 
+<p class="entrada">
+    Este sitio es parte de un <strong>proyecto universitario de maestría</strong>.
+    No es un servicio del gobierno y lo que se manda aquí no llega a ninguna
+    dependencia.
+</p>
+
 <?php foreach ($errores as $mensaje): ?>
     <?php aviso($mensaje, 'error'); ?>
 <?php endforeach; ?>
@@ -146,12 +141,10 @@ encabezado('Reportar un problema');
                value="<?= e($colonia) ?>" placeholder="Ej. Colonia Centro, calle Reforma">
     </div>
 
-    <div class="campo">
-        <label for="nombre">Tu nombre</label>
-        <input type="text" id="nombre" name="nombre" maxlength="120"
-               value="<?= e($nombre) ?>" placeholder="Opcional">
-        <p class="ayuda">Si lo dejas vacío, el reporte se registra como anónimo.</p>
-    </div>
+    <p class="ayuda">
+        No escribas tu nombre ni ningún otro dato personal. Los reportes se
+        guardan sin identificar a nadie.
+    </p>
 
     <button type="submit" class="boton">Enviar reporte</button>
 </form>
